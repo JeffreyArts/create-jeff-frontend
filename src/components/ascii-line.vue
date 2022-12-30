@@ -47,7 +47,7 @@ export default defineComponent({
 .ascii-line {
     width: 100%;
     display: inline-block;
-    word-wrap: break-word;
+    word-wrap: anywhere;
     overflow: hidden;
 }
 </style>

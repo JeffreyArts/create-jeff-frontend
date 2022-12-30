@@ -41,7 +41,6 @@ export default defineComponent({
             this.$refs['button'].style.padding = `${fontSize}px 0`
             this.fillTopLine(this.$refs['top'], fontSize)
             this.fillBottomLine(this.$refs['bottom'], fontSize)
-            console.log(startWidth)
         }
     },
     unmounted() {
@@ -49,7 +48,6 @@ export default defineComponent({
     },
     methods: {
         fillTopLine($ref:HTMLInputElement, startHeight:number) {
-            console.log(this.$slots)
             if ($ref) {
                 const string = this.$refs['center'].innerText
                 $ref.innerHTML = "┌" + this.character.repeat(string.length-2) + "┐"
