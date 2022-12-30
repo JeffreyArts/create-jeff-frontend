@@ -1,34 +1,131 @@
+@import './variables.scss';
+
 .button {
-    background-color: #fff;
-    border: 4px solid $black;
-    font-size: 21px;
-    padding: 8px 16px;
-    font-weight: bold;
-    text-decoration: none;
-    border-radius: 8px;
-    color: $black;
-    position: relative;
-    text-align: center;
+    background-color: transparent;
+    border: 1px solid $light-grey;
+    border-radius: 32px;
+    background-color: $light-grey;
+    height: 36px;
+    display: inline-block;
+    align-items: center;
+    padding: 0 32px;
+    transition: $transitionFast;
+    cursor: pointer;
     
-    &:after {
-        content: "";
-        border-radius: 8px;
-        background-color: $black;
-        border: 4px solid $black;
-        transform-origin: left bottom;
-        transform: rotate(1.6deg);
-        position: absolute;
-        left: 0;
-        right: 0;
-        bottom: -4px;
-        top: 0;
-        z-index: -1;
+    &.small {
+        height: 28px;
+        padding: 0 24px;
+        font-weight: 300;
+    }
+
+    &.large {
+        height: 48px;
+        padding: 0 36px;
+        border-width:2px;
+        font-size: 24px;
     }
     
-    &.__isBig {
-        font-size: 26px;
-        padding: 16px;
-        font-family: 'source-sans-pro';
-        letter-spacing: .05em;
+
+    &.c-accent {
+        background-color: $accentColor;
+        border-color: $accentColor;
+        color: $white;
+        &.ghost {
+            color: $accentColor;
+        }
+    }
+    
+    &.c-blue {
+        background-color: $blue;
+        border-color: $blue;
+        color: $white;
+        &.ghost {
+            color: $blue;
+        }
+    }
+
+    &.c-pink {
+        background-color: $pink;
+        border-color: $pink;
+        color: $white;
+        &.ghost {
+            color: $pink;
+        }
+    }
+
+    &.c-red {
+        background-color: $red;
+        border-color: $red;
+        color: $white;
+        &.ghost {
+            color: $red;
+        }
+    }
+    &.c-green {
+        background-color: $green;
+        border-color: $green;
+        color: $white;
+        &.ghost {
+            color: $green;
+        }
+    }
+
+    &.ghost {
+        border: 1px solid currentColor;
+        background-color: transparent;
+        color: $grey;
+    }
+    
+    &:hover {
+        background-color: $grey;
+        border-color: $grey;
+        color: $white;
+        
+        &.ghost {
+            color: $white;
+        }
+
+        &.c-blue {
+            background-color: $white;
+            color: $blue;
+            border-color: $blue;
+            &.ghost {
+                background-color: $blue;
+            }
+        }
+        &.c-pink {
+            background-color: $white;
+            color: $pink;
+            border-color: $pink;
+            &.ghost {
+                background-color: $pink;
+            }
+        }
+        &.c-red {
+            background-color: $white;
+            color: $red;
+            border-color: $red;
+            &.ghost {
+                background-color: $red;
+            }
+        }
+        &.c-accent {
+            background-color: $white;
+            color: $accentColor;
+            border-color: $accentColor;
+            &.ghost {
+                background-color: $accentColor;
+                color: $white;
+            }
+        }
+        &.c-green {
+            background-color: $white;
+            color: $green;
+            border-color: $green;
+            &.ghost {
+                background-color: $green;
+            }
+        }
+        
     }
 }

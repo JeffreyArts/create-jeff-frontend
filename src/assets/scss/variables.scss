@@ -1,15 +1,19 @@
-$textColor: #1E1E1E;
-$accentColor: #1391B2;
+$yellow: #faec16;
+$green: #4dbb86;
+$black: #333;
+$pink: #f6b0c1;
+$red: #ef5327;
+$blue: #2278EB;
+$white: #fff;
+$grey: #ccc;
+$light-grey: #f5f5f5;
 
-$failureColor: #DF145D;
-$successColor: #57FF86;
+$textColor: $black;
+$accentColor: #EA6E8C;
+$primaryColor: $blue;
+$failureColor: $red;
+$successColor: #5bff6f;
 
-
-$grey: #7E7E7E;
-$lightgrey: #eee;
-$green: #57FF86;
-$black: #1E1E1E;
-$red: #DF145D;
-$blue: #1391B2;
 
 $transitionDefault: .64s ease all;
+$transitionFast: .12s all linear;

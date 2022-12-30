@@ -1,8 +1,14 @@
 <template>
-    <div class="app home">
-        <h1>HOME</h1>
-        <button @click="emitEvent('test')">Emit event</button>
-        <button @click="postRequest('test')">Post request</button>
+    <div class="home">
+        <div class="container">
+            <h1>HOME</h1>
+            <ascii-line character="-"/>
+            <br>
+            <br>
+            <ascii-button @click="emitEvent('test')">Emit event</ascii-button>
+            &nbsp;
+            <ascii-button @click="postRequest('test')">Post request</ascii-button>
+        </div>
     </div>
 </template>
 
@@ -12,12 +18,14 @@ import {defineComponent} from "vue"
 import LocalDB from "../stores/localdb";
 import SocketIO from "../stores/socketio";
 import Icon from "./../components/icon.vue"
+import asciiLine from "./../components/ascii-line.vue"
+import asciiButton from "./../components/ascii-button.vue"
 import dayjs from "dayjs"
 import _ from "lodash"
 
 export default defineComponent ({ 
     name: "homePage",
-    components: {Icon},
+    components: {Icon,asciiLine,asciiButton},
     props: [],
     setup() {
         const localDB = LocalDB();
