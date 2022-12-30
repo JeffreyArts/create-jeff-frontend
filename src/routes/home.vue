@@ -2,10 +2,28 @@
     <div class="home">
         <div class="container">
             
-            <h1 class="home-title">{{ currentDate }}</h1>
+            <h1 class="home-title">
+                <span class="left">
+                    Jeff-frontend boilerplate
+                </span>
+                <span class="right">
+                    {{ currentDate }}
+                </span>
+            </h1>
+
             <ascii-line character="-"/>
-            <p class="home-description">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Tempora voluptate quas ut optio, autem, facilis ab magni, tenetur aliquid vel rerum assumenda fugit a quis quidem fugiat id facere sit? Lorem, ipsum dolor sit amet consectetur adipisicing elit. Tempora voluptate quas ut optio, autem, facilis ab magni, tenetur aliquid vel rerum assumenda fugit a quis quidem fugiat id facere sit? Lorem, ipsum dolor sit amet consectetur adipisicing elit. Tempora voluptate quas ut optio, autem, facilis ab magni, tenetur aliquid vel rerum assumenda fugit a quis quidem fugiat id facere sit?</p>
-            <ascii-line character="-"/>
+
+            <div class="home-description">
+                <p>
+                    This is a boilerplate for a frontend application using Vue 3, Typescript, Vue Router, Pinia, Vite, Lodash, PouchDB, Sass & SocketIO.
+                </p>
+                <p>
+                    It can best be used with its backend counterpart <a href="https://github.com/JeffreyArts/create-jeff-backend">Jeff-backend</a>, with you can create with <pre @click="copyToClipboard" title="Click to copy">yarn create jeff-backend</pre>.
+                </p>
+            </div>
+
+                
+            <ascii-line character="="/>
             <br>
             <ascii-button @click="emitEvent('test')">Emit event</ascii-button>
             &nbsp;
@@ -52,11 +70,20 @@ export default defineComponent ({
         }
     },
     mounted() {
-        if (this.socketIO.socket) {
+        if (this.socketIO.socket) { 
+
+            this.socketIO.socket.on("connect", (data) => {
+                this.consoleEvents.push(`${dayjs().format("HH:mm:ss")} | Socket connected`)
+            })
+
+            this.socketIO.socket.on("connect_error", (data) => {
+                this.consoleEvents.push(`${dayjs().format("HH:mm:ss")} | Can not establish socket connection @ ${this.socketIO.URL}`) 
+            })
+
             this.socketIO.socket.on("test", (data) => {
                 this.consoleEvents.push(`${dayjs().format("HH:mm:ss")} | ${data}`)
             })
-        }
+        } 
     },
     methods: {
         emitEvent(event: string) {
@@ -73,6 +100,22 @@ export default defineComponent ({
                 body: JSON.stringify(data)
             })
         },
+        copyToClipboard(mouseEvent: MouseEvent) {
+            const element = mouseEvent.target as HTMLElement;
+            const textarea = document.createElement('textarea');
+            textarea.textContent = element.innerText;
+            document.body.appendChild(textarea);
+            textarea.select();
+
+            try {
+                document.execCommand('copy');
+                console.log('Copied to clipboard');
+            } catch (err) {
+                console.error('Failed to copy to clipboard: ', err);
+            } finally {
+                document.body.removeChild(textarea);
+            }
+        }
     }
 })
 
@@ -87,6 +130,16 @@ export default defineComponent ({
     justify-content: center;
     align-items: center;
     width: 100%;
+
+    pre {
+        display: inline-block;
+        background-color: $textColor;
+        color: $white;
+        padding: 8px;
+        border-radius: 4px;
+        margin: 0;
+        cursor: pointer;
+    }
 }
 
 .home-title {
@@ -94,14 +147,24 @@ export default defineComponent ({
     text-align: right;
     font-size:16px;
     font-weight: normal;
+    .left {
+        float: left;
+        font-weight: bold;
+    }
 }
 
 .home-button-right {
     float: right;
 }
+
 .home-description {
     padding: 32px 0;
 }
+
+.home-console {
+    width: 100%;
+}
+
 .home-console-entry {
     display: inline-block;
     width: 100%;
@@ -110,5 +173,6 @@ export default defineComponent ({
         font-weight: bold;
     }
 }
+
 
 </style>
