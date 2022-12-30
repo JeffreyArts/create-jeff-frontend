@@ -15,52 +15,45 @@ import { defineComponent } from "vue"
 
 export default defineComponent({
     name: "acii-button",
-    data: () => {
-        return {
-        }
-    },
     props: {
         character: {
             type: String,
             required: false,
-            default: '─'
+            default: "─"
         },
+    },
+    data: () => {
+        return {
+        }
     },
     computed: {
         line() {
             return this.character.repeat(512)
         }
     },
-    created() {
-    },
     mounted() {
-        if (this.$refs['button'] && this.$refs['top'] && this.$refs['bottom']) {
-            const startWidth = this.$refs['button'].clientWidth
-            const fontSize = Math.floor(window.getComputedStyle(this.$refs['button']).fontSize.replace("px", ""))
+        if (this.$refs["button"] instanceof HTMLElement) {
+            const fontSize = Math.floor(parseInt(window.getComputedStyle(this.$refs["button"]).fontSize.replace("px", ""),10))
             // this.$refs['button'].style.height = `${fontSize}px`
-            this.$refs['button'].style.padding = `${fontSize}px 0`
-            this.fillTopLine(this.$refs['top'], fontSize)
-            this.fillBottomLine(this.$refs['bottom'], fontSize)
+            this.$refs["button"].style.padding = `${fontSize}px 0`
+            this.fillLine("top")
+            this.fillLine("bottom")
         }
-    },
-    unmounted() {
-        
     },
     methods: {
-        fillTopLine($ref:HTMLInputElement, startHeight:number) {
+        fillLine(side: "top" | "bottom") {
+            const $ref = this.$refs[side] as HTMLElement | null
+            let string = ""
+            if (this.$refs["center"] instanceof HTMLElement) {
+                string = this.$refs["center"].innerText
+            }
+
+            const startChar = side === "top" ? "┌" : "└"
+            const endChar = side === "top" ? "┐" : "┘"
             if ($ref) {
-                const string = this.$refs['center'].innerText
-                $ref.innerHTML = "┌" + this.character.repeat(string.length-2) + "┐"
-                $ref.classList.add("__isLoaded")
+                $ref.innerHTML = startChar + this.character.repeat(string.length-2) + endChar
             }
         },
-        fillBottomLine($ref:HTMLInputElement, startHeight:number) {
-            if ($ref) {
-                const string = this.$refs['center'].innerText
-                $ref.innerHTML = "└" + this.character.repeat(string.length-2) + "┘"
-                $ref.classList.add("__isLoaded")
-            }
-        }
     }
 })
 </script>
@@ -103,9 +96,6 @@ export default defineComponent({
     word-wrap: break-word;
     overflow: hidden;
     transition: $transitionFast;
-    &.__isLoaded {
-        word-wrap: normal;
-    }
 }
 
 .ascii-button-center {
@@ -122,9 +112,6 @@ export default defineComponent({
     display: inline-block;
     word-wrap: break-word;
     transition: $transitionFast;
-    &.__isLoaded {
-        word-wrap: normal;
-    }
 }
 
 </style>

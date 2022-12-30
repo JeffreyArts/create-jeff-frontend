@@ -9,16 +9,10 @@
 <script lang="ts">
 import { defineComponent } from "vue"
 import iconCross from "./../assets/icons/cross.svg?raw"
+import iconCalendar from "./../assets/icons/calendar.svg?raw"
 
 export default defineComponent({
     name: "icon",
-    data: () => {
-        return {
-            iconList: {
-                cross: iconCross
-            } as { [key: string]: any}
-        }
-    },
     props: {
         type: {
             type: String,
@@ -29,17 +23,14 @@ export default defineComponent({
             required: false
         }
     },
-    
-    created() {
+    data: () => {
+        return {
+            iconList: {
+                cross: iconCross,
+                calendar: iconCalendar,
+            } as { [key: string]: string}
+        }
     },
-    mounted() {
-    },
-    unmounted() {
-        
-    },
-    methods: {
-        
-    }
 })
 </script>
 
@@ -54,12 +45,13 @@ export default defineComponent({
 
     .icon-svg {
         display: inline-block;
-        width: 100%;
+        height: 100%;
+        width: auto;
         
         svg {
             fill: currentColor;
-            width: 100%;    
-            height: auto;
+            width: auto;    
+            height: inherit;
         }
     }
     .icon-label {

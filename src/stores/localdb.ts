@@ -1,6 +1,6 @@
-import { defineStore } from "pinia";
+import { defineStore } from "pinia"
 import PouchDB from "pouchdb-browser"
-import _ from "lodash";
+import _ from "lodash"
 const db = new PouchDB("local-db")
 
 
@@ -41,6 +41,6 @@ export const localDB = defineStore({
     },
     getters: {
     }
-}) as any ;
+}) as any 
 
 export default localDB

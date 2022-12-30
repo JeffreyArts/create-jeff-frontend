@@ -7,7 +7,7 @@
                     Jeff-frontend boilerplate
                 </span>
                 <span class="right">
-                    {{ currentDate }}
+                    <Icon type="calendar" />{{ currentDate }}
                 </span>
             </h1>
 
@@ -15,7 +15,7 @@
 
             <div class="home-description">
                 <p>
-                    This is a boilerplate for a frontend application using Vue 3, Typescript, Vue Router, Pinia, Vite, Lodash, PouchDB, Sass & SocketIO.
+                    This is a boilerplate for a frontend application using Vue 3, Typescript, Vue Router, Pinia, Vite, Lodash, PouchDB, Sass, normalize.css & SocketIO.
                 </p>
                 <p>
                     It can best be used with its backend counterpart <a href="https://github.com/JeffreyArts/create-jeff-backend">Jeff-backend</a>, with you can create with <pre @click="copyToClipboard" title="Click to copy">yarn create jeff-backend</pre>.
@@ -40,8 +40,8 @@
 
 <script lang="ts">
 import {defineComponent} from "vue"
-import LocalDB from "../stores/localdb";
-import SocketIO from "../stores/socketio";
+import LocalDB from "../stores/localdb"
+import SocketIO from "../stores/socketio"
 import Icon from "./../components/icon.vue"
 import asciiLine from "./../components/ascii-line.vue"
 import asciiButton from "./../components/ascii-button.vue"
@@ -51,11 +51,11 @@ import _ from "lodash"
 
 export default defineComponent ({ 
     name: "homePage",
-    components: {Icon,asciiLine, asciiButton, asciiBox},
+    components: {Icon, asciiLine, asciiButton, asciiBox},
     props: [],
     setup() {
-        const localDB = LocalDB();
-        const socketIO = SocketIO();
+        const localDB = LocalDB()
+        const socketIO = SocketIO()
 
         return { localDB, socketIO }
     },
@@ -72,11 +72,11 @@ export default defineComponent ({
     mounted() {
         if (this.socketIO.socket) { 
 
-            this.socketIO.socket.on("connect", (data) => {
+            this.socketIO.socket.on("connect", () => {
                 this.consoleEvents.push(`${dayjs().format("HH:mm:ss")} | Socket connected`)
             })
 
-            this.socketIO.socket.on("connect_error", (data) => {
+            this.socketIO.socket.on("connect_error", () => {
                 this.consoleEvents.push(`${dayjs().format("HH:mm:ss")} | Can not establish socket connection @ ${this.socketIO.URL}`) 
             })
 
@@ -101,19 +101,19 @@ export default defineComponent ({
             })
         },
         copyToClipboard(mouseEvent: MouseEvent) {
-            const element = mouseEvent.target as HTMLElement;
-            const textarea = document.createElement('textarea');
-            textarea.textContent = element.innerText;
-            document.body.appendChild(textarea);
-            textarea.select();
+            const element = mouseEvent.target as HTMLElement
+            const textarea = document.createElement("textarea")
+            textarea.textContent = element.innerText
+            document.body.appendChild(textarea)
+            textarea.select()
 
             try {
-                document.execCommand('copy');
-                console.log('Copied to clipboard');
+                document.execCommand("copy")
+                console.log("Copied to clipboard")
             } catch (err) {
-                console.error('Failed to copy to clipboard: ', err);
+                console.error("Failed to copy to clipboard: ", err)
             } finally {
-                document.body.removeChild(textarea);
+                document.body.removeChild(textarea)
             }
         }
     }
@@ -147,6 +147,11 @@ export default defineComponent ({
     text-align: right;
     font-size:16px;
     font-weight: normal;
+    .icon {
+        height: 1.2em;
+        translate: -8px 4px;
+        display: inline-block;
+    }   
     .left {
         float: left;
         font-weight: bold;
@@ -163,6 +168,7 @@ export default defineComponent ({
 
 .home-console {
     width: 100%;
+    display: block;
 }
 
 .home-console-entry {

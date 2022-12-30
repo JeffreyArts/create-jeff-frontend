@@ -22,18 +22,23 @@ import { defineComponent } from "vue"
 
 export default defineComponent({
     name: "acii-box",
+    props: {
+        character: {
+            type: String,
+            required: false,
+            default: "─"
+        },
+    },
     data: () => {
         return {
             fontSize: 32,
             observer: null as null | MutationObserver
         }
     },
-    props: {
-        character: {
-            type: String,
-            required: false,
-            default: '─'
-        },
+    computed: {
+        line() {
+            return this.character.repeat(512)
+        }
     },
     watch: {
         fontSize(newSize) {
@@ -42,93 +47,85 @@ export default defineComponent({
             }
         }
     },
-    computed: {
-        line() {
-            return this.character.repeat(512)
-        }
-    },
     mounted() {
-        const observer = new MutationObserver(this.updateBoxLayout);
-            observer.observe(this.$refs['slot'], {
-            childList: true,
-            subtree: true 
-        });
-        this.observer = observer;
+        const observer = new MutationObserver(this.updateBoxLayout)
+        if (this.$refs["slot"] instanceof HTMLElement) {
+            observer.observe(this.$refs["slot"], {
+                childList: true,
+                subtree: true 
+            })
+            this.observer = observer
+        }
 
-        window.addEventListener('resize', this.updateBoxLayout)
+        window.addEventListener("resize", this.updateBoxLayout)
 
 
-        if (this.$refs['box'] && this.$refs['top'] && this.$refs['bottom']) {
-            const startWidth = this.$refs['box'].clientWidth
-            this.fontSize = Math.floor(parseInt(window.getComputedStyle(this.$refs['box']).fontSize.replace("px", ""),10))
+        if (this.$refs["box"] instanceof HTMLElement && this.$refs["top"] && this.$refs["bottom"]) {
+            this.fontSize = Math.floor(parseInt(window.getComputedStyle(this.$refs["box"]).fontSize.replace("px", ""),10))
             if (!this.fontSize) {
                 this.fontSize = 32
             }
-            this.$refs['box'].style.padding = `${this.fontSize}px`
+            this.$refs["box"].style.padding = `${this.fontSize}px`
             
         }
     },
-    unmounted() {
-        
-    },
-
     beforeUnmount() {
-        this.observer.disconnect();
-        window.removeEventListener('resize', this.updateBoxLayout)
+        if (this.observer) {
+            this.observer.disconnect()
+        }
+        window.removeEventListener("resize", this.updateBoxLayout)
     },
     methods: {
         updateBoxLayout() {
-            this.fillLine('top')
-            this.fillLine('bottom')
-            this.fillSide('left')
-            this.fillSide('right')
+            this.fillLine("top")
+            this.fillLine("bottom")
+            this.fillSide("left")
+            this.fillSide("right")
         },
-        fillLine(side: 'top' | 'bottom') {
-            const $ref = this.$refs[side] as HTMLInputElement | null;
-            const startHeight = this.fontSize as number;
-            const startChar = side === 'top' ? '┌' : '└'
-            const endChar = side === 'top' ? '┐' : '┘'
+        fillLine(side: "top" | "bottom") {
+            const $ref = this.$refs[side] as HTMLInputElement | null
+            const startHeight = this.fontSize as number
+            const startChar = side === "top" ? "┌" : "└"
+            const endChar = side === "top" ? "┐" : "┘"
             if ($ref) {
                 let i = 1
                 while ($ref.clientHeight < startHeight * 2  && i < 512) {
-                    i++;
+                    i++
                     $ref.innerHTML = startChar + this.character.repeat(i) + endChar
                 }
                 $ref.innerHTML = startChar + this.character.repeat(i - 1) + endChar
             }
         },
-        fillSide(side: 'left' | 'right') {
-            const $box = this.$refs['box'] as HTMLInputElement | null;
-            const $ref = this.$refs[side] as HTMLInputElement | null;
+        fillSide(side: "left" | "right") {
+            const $box = this.$refs["box"] as HTMLInputElement | null
+            const $ref = this.$refs[side] as HTMLInputElement | null
 
             if ($ref && $box) {
                 let i = 1
                 $ref.innerHTML = ""
                 while ($ref.clientHeight <= $box.clientHeight-this.fontSize  && i < 512) {
                     $ref.innerHTML = "|".repeat(i )
-                    i++;
+                    i++
                 }
                 $ref.innerHTML = "|".repeat(i-2)
-                let padding = `${this.fontSize}px 0 0`;
-                if (side == 'right') {
-                    padding = `${this.fontSize}px ${this.fontSize}px 0 0`;
+                let padding = `${this.fontSize}px 0 0`
+                if (side == "right") {
+                    padding = `${this.fontSize}px ${this.fontSize}px 0 0`
                 }
                 $ref.style.padding = padding
             }
         },
         fillBottomLine() {
-            const $ref = this.$refs['bottom'] as HTMLInputElement | null;
-            const startHeight = this.fontSize as number;
+            const $ref = this.$refs["bottom"] as HTMLInputElement | null
+            const startHeight = this.fontSize as number
 
             if ($ref) {
                 let i = 1
                 while ($ref.clientHeight < startHeight * 2  && i < 512) {
-                    i++;
+                    i++
                     $ref.innerHTML = "└" + this.character.repeat(i) + "┘"
                 }
                 $ref.innerHTML = "└" + this.character.repeat(i - 1) + "┘"
-                
-                $ref.classList.add("__isLoaded");
             }
         }
     }
@@ -139,7 +136,6 @@ export default defineComponent({
 @import "./../assets/scss/variables.scss";
 .ascii-box {
     font-family: monospace;
-    width: auto;
     display: inline-block;
     position: relative;
     line-height:1.2em;

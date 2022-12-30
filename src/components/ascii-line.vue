@@ -9,32 +9,27 @@ import { defineComponent } from "vue"
 
 export default defineComponent({
     name: "acii-line",
-    data: () => {
-        return {
-        }
-    },
     props: {
         character: {
             type: String,
             required: false,
-            default: '-'
+            default: "-"
         },
+    },
+    data: () => {
+        return {
+        }
     },
     computed: {
         line() {
             return this.character.repeat(512)
         }
     },
-    created() {
-    },
     mounted() {
-        if (this.$refs['line']) {
-            const fontSize = window.getComputedStyle(this.$refs['line']).fontSize.replace("px", "")
-            this.$refs['line'].style.height = `${fontSize}px`
+        if (this.$refs["line"] instanceof HTMLElement) {
+            const fontSize = window.getComputedStyle(this.$refs["line"]).fontSize.replace("px", "")
+            this.$refs["line"].style.height = `${fontSize}px`
         }
-    },
-    unmounted() {
-        
     },
     methods: {
         
