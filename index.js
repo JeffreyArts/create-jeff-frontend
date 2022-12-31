@@ -80,19 +80,20 @@ async function main() {
     envFile = fs.readFileSync(`${outputDir}/.env`, 'utf8');
     envFile = envFile.replace('{{appName}}', appName);
     fs.writeFileSync(`${outputDir}/.env`, envFile);
-
+    
     // Replace {{VITE_SOCKETIO}} in .env file
     let VITE_SOCKETIO = await askQuestion('SocketIO backend location (default:http://localhost:3000): ')
-        VITE_SOCKETIO = VITE_SOCKETIO || 'http://localhost:3000';
-    console.log('VITE_SOCKETIO',VITE_SOCKETIO)
+    VITE_SOCKETIO = VITE_SOCKETIO || 'http://localhost:3000';
     envFile = fs.readFileSync(`${outputDir}/.env`, 'utf8');
     envFile = envFile.replace('{{VITE_SOCKETIO}}', VITE_SOCKETIO);
     fs.writeFileSync(`${outputDir}/.env`, envFile);
-
+    
     if (process.env.npm_execpath) {
         if (process.env.npm_execpath.includes('yarn')) {
+            console.log('Installing dependencies, might take a few minutes')
             exec(`cd ${outputDir} && yarn install`)
         } else if (process.env.npm_execpath.includes('npm')) {
+            console.log('Installing dependencies, might take a few minutes')
             exec(`cd ${outputDir} && npm install`)
         }
     } 
