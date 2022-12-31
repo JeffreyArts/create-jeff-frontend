@@ -1,57 +1,44 @@
-# Jeff frontend
+# Jeff-frontend
 
-This is a boilerplate for a frontend application using Vue 3, Typescript, Vue Router, Pinia, Vite, Lodash, PouchDB, Sass, normalize.css & SocketIO. It can best be used with its backend counterpart Jeff-backend, which you can create with `yarn create jeff-backend`.
+This is a boilerplate project for a Vue3 app that is configured to support the following features on default:
 
-## Features
-
-- Vue 3
-- Typescript
-- Vue Router
-- Pinia
-- Vite
+- ES lint
 - Lodash
-- PouchDB
-- Sass
 - normalize.css
+- PouchDB
+- Pinia
+- Sass
 - SocketIO
+- SVG Icons
+- Typescript
+- Vite
+- Vue 3
+- Vue Router
 
-## Getting started
+> **Compatibility Note:**
 
-To get the project up and running, execute the following commands;
+With NPM:
 
-```
-$ npm install
-$ npm run dev
-
-or
-
-$ yarn install
-$ yarn dev
-```
-
-To build the project for production, run the following command:
-```
-$ npm run build 
-
-or 
-
-$ yarn build
-```
-This will build the project, and output the files to the dist directory.
-
-
-You can also customise the `deploy.sh` file with the correct (SSH) login credentials and the desired directory location. Than you can deploy the project easily with the following command:
-
-```
-$ npm run deploy 
-
-or 
-
-$ yarn deploy
+```bash
+$ npm create jeff-frontend@latest
 ```
 
+With Yarn:
 
-## [License](https://github.com/JeffreyArts/create-jeff-backend/blob/master/LICENSE)
+```bash
+$ yarn create jeff-frontend
+```
+
+With PNPM:
+
+```bash
+$ pnpm create jeff-frontend
+```
+
+Then follow the prompts!
+
+
+## License
 
 Copyright © 2023 <Jeffrey Arts>
 
