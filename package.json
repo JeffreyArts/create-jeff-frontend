@@ -1,6 +1,6 @@
 {
   "name": "create-jeff-frontend",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "A Vue3 app with Typescript, ESlint, socketIO, PouchDB and various other features. There is also an associated backend version available called jeff-backend.",
   "main": "index.js",
   "scripts": {

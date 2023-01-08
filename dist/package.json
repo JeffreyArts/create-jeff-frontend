@@ -1,5 +1,5 @@
 {
-  "name": "{{appName}}",
+  "name": "this_name_will_be_replaced",
   "private": true,
   "version": "0.0.7",
   "type": "module",

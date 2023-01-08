@@ -92,7 +92,7 @@ export default defineComponent ({
         },
         postRequest(data: any) {
             this.consoleEvents.push(`${dayjs().format("HH:mm:ss")} | Post request send`)
-            fetch("http://localhost:3000/test", {
+            fetch(`${import.meta.env.VITE_REST_API}/test`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"

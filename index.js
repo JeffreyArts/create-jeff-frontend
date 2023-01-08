@@ -58,7 +58,7 @@ function askQuestion(question) {
 }
 
 async function main() {
-    // Replace {{appName}} with provided app name in package.json
+    // Replace {{this_name_will_be_replaced}} with provided app name in package.json
     let appName = await askQuestion('Enter app name: ') || 'app-name';
     appName = appName.replace(/\s+/g, '-').toLowerCase();
     const outputDir = appName;
@@ -74,11 +74,11 @@ async function main() {
 
     // Rewrite package name
     let packageJson = fs.readFileSync(`${outputDir}/package.json`, 'utf8');
-    packageJson = packageJson.replace('{{appName}}', appName);
+    packageJson = packageJson.replace('this_name_will_be_replaced', appName);
     fs.writeFileSync(`${outputDir}/package.json`, packageJson);
 
     envFile = fs.readFileSync(`${outputDir}/.env`, 'utf8');
-    envFile = envFile.replace('{{appName}}', appName);
+    envFile = envFile.replace('this_name_will_be_replaced', appName);
     fs.writeFileSync(`${outputDir}/.env`, envFile);
     
     // Replace {{VITE_SOCKETIO}} in .env file
@@ -87,6 +87,16 @@ async function main() {
     envFile = fs.readFileSync(`${outputDir}/.env`, 'utf8');
     envFile = envFile.replace('{{VITE_SOCKETIO}}', VITE_SOCKETIO);
     fs.writeFileSync(`${outputDir}/.env`, envFile);
+
+    // Replace {{VITE_REST_API}} in .env file
+    let VITE_REST_API = await askQuestion('REST API location (default:http://localhost:3000): ')
+    VITE_REST_API = VITE_REST_API || 'http://localhost:3000';
+    envFile = fs.readFileSync(`${outputDir}/.env`, 'utf8');
+    envFile = envFile.replace('{{VITE_REST_API}}', VITE_REST_API);
+    fs.writeFileSync(`${outputDir}/.env`, envFile);
+
+    // rewrite _.gitignore to .gitignore
+    fs.renameSync(`${outputDir}/_.gitignore`, `${outputDir}/.gitignore`);
     
     if (process.env.npm_execpath) {
         if (process.env.npm_execpath.includes('yarn')) {
