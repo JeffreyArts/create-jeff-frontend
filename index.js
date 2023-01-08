@@ -92,7 +92,7 @@ async function main() {
     let VITE_REST_API = await askQuestion('REST API location (default:http://localhost:3000): ')
     VITE_REST_API = VITE_REST_API || 'http://localhost:3000';
     envFile = fs.readFileSync(`${outputDir}/.env`, 'utf8');
-    envFile = envFile.replace('{{VITE_REST_API}}', VITE_REST_API);
+    envFile = envFile.replace('{{VITE_REST}}', VITE_REST_API);
     fs.writeFileSync(`${outputDir}/.env`, envFile);
 
     // rewrite _.gitignore to .gitignore
