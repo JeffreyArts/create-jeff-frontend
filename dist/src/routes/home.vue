@@ -40,12 +40,12 @@
 
 <script lang="ts">
 import {defineComponent} from "vue"
-import LocalDB from "../stores/localdb"
-import SocketIO from "../stores/socketio"
-import Icon from "./../components/icon.vue"
-import asciiLine from "./../components/ascii-line.vue"
-import asciiButton from "./../components/ascii-button.vue"
-import asciiBox from "./../components/ascii-box.vue"
+import LocalDB from "@/stores/localdb"
+import SocketIO from "@/stores/socketio"
+import Icon from "@/components/icon.vue"
+import asciiLine from "@/components/ascii-line.vue"
+import asciiButton from "@/components/ascii-button.vue"
+import asciiBox from "@/components/ascii-box.vue"
 import dayjs from "dayjs"
 import _ from "lodash"
 
@@ -122,7 +122,7 @@ export default defineComponent ({
 </script>
 
 <style lang="scss">
-@import "./../assets/scss/variables.scss";
+@import "@/assets/scss/variables.scss";
 
 .home {
     min-height:100%;

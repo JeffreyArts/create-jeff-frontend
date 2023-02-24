@@ -5,8 +5,8 @@
 
 <script setup lang="ts">
     
-import SocketIO from "./stores/socketio"
-import LocalDB from "./stores/localdb"
+import SocketIO from "@/stores/socketio"
+import LocalDB from "@/stores/localdb"
 const socketIO = SocketIO()
 const localDB = LocalDB()
 localDB.load()
