@@ -1,17 +1,20 @@
 {
   "name": "this_name_will_be_replaced",
   "private": true,
-  "version": "0.0.7",
+  "version": "0.1.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc && vite build",
-    "deploy": "bash deploy.sh",
+    "deploy": "NODE_ENV=staging bash deploy.sh",
     "preview": "vite preview"
   },
   "dependencies": {
+    "axios": "^1.4.0",
     "dayjs": "^1.11.7",
     "events": "^3.3.0",
+    "gsap": "^3.11.5",
+    "jwt-decode": "^3.1.2",
     "lodash": "^4.17.21",
     "normalize.css": "^8.0.1",
     "pinia": "^2.0.28",

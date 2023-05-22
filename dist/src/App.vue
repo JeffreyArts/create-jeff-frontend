@@ -5,12 +5,12 @@
 
 <script setup lang="ts">
     
-import SocketIO from "@/stores/socketio"
+import Strapi from "@/stores/strapi"
 import LocalDB from "@/stores/localdb"
-const socketIO = SocketIO()
+const strapi = Strapi()
 const localDB = LocalDB()
 localDB.load()
-socketIO.init()
+strapi.init()
 </script>
 
 <style src="./assets/scss/index.scss"></style>
