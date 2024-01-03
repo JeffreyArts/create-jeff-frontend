@@ -81,18 +81,12 @@ async function main() {
     envFile = envFile.replace('this_name_will_be_replaced', appName);
     fs.writeFileSync(`${outputDir}/.env`, envFile);
     
-    // Replace {{VITE_SOCKETIO}} in .env file
-    let VITE_SOCKETIO = await askQuestion('SocketIO backend location (default:http://localhost:3000): ')
-    VITE_SOCKETIO = VITE_SOCKETIO || 'http://localhost:3000';
+    // Replace {{VITE_STRAPI_REST_ENDPOINT}} in .env file
+    let VITE_STRAPI_REST_ENDPOINT = await askQuestion('Strapi backend location (default:http://localhost:1337): ')
+    VITE_STRAPI_REST_ENDPOINT = VITE_STRAPI_REST_ENDPOINT || 'http://localhost:1337';
     envFile = fs.readFileSync(`${outputDir}/.env`, 'utf8');
-    envFile = envFile.replace('{{VITE_SOCKETIO}}', VITE_SOCKETIO);
-    fs.writeFileSync(`${outputDir}/.env`, envFile);
+    envFile = envFile.replace('{{VITE_STRAPI_REST_ENDPOINT}}', VITE_STRAPI_REST_ENDPOINT);
 
-    // Replace {{VITE_REST_API}} in .env file
-    let VITE_REST_API = await askQuestion('REST API location (default:http://localhost:3000): ')
-    VITE_REST_API = VITE_REST_API || 'http://localhost:3000';
-    envFile = fs.readFileSync(`${outputDir}/.env`, 'utf8');
-    envFile = envFile.replace('{{VITE_REST}}', VITE_REST_API);
     fs.writeFileSync(`${outputDir}/.env`, envFile);
 
     // rewrite _.gitignore to .gitignore

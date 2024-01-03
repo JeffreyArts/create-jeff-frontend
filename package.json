@@ -1,14 +1,17 @@
 {
   "name": "create-jeff-frontend",
-  "version": "0.0.5",
-  "description": "A Vue3 app with Typescript, ESlint, socketIO, PouchDB and various other features. There is also an associated backend version available called jeff-backend.",
+  "version": "0.0.7",
+  "description": "A Vue3 app with Typescript, ESlint, PouchDB and various other features that will work out of the box with Strapi.",
   "main": "index.js",
   "scripts": {
-    "create": "index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "create": "node ./index.js",
+    "test": "node ./index.js"
   },
   "bin": {
     "create-jeff-frontend": "./index.js"
+  },
+  "engines" : { 
+    "node" : ">=16.0.0"
   },
   "author": "Jeffrey Arts <contact@jeffreyarts.nl>",
   "license": "MIT",
