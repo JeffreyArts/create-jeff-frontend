@@ -1,14 +1,17 @@
-import { createApp } from "vue"
+import { ViteSSG } from "vite-ssg"
+import App from "./App.vue"
+import { routerOptions } from "@/routes"
 import { createPinia } from "pinia"
-import router from "./routes"
-document.title = import.meta.env.VITE_PAGE_TITLE
-
-
+import { VueHeadMixin } from "@unhead/vue"
 import "./assets/scss/index.scss"
-import App from "@/App.vue"
-const pinia = createPinia()
 
-createApp(App)
-    .use(pinia)
-    .use(router)
-    .mount("#app")
+export const createApp = ViteSSG(
+    App,
+    routerOptions ,
+    // function to have custom setups
+    ({ app, router, routes, isClient, initialState }) => {
+        const pinia = createPinia()
+        app.use(pinia)
+        app.mixin(VueHeadMixin)
+    },
+)

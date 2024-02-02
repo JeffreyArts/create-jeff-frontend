@@ -26,4 +26,8 @@ dist-ssr
 
 # Other relevant files
 .env
+.env.*
+package-lock.json
+gsap-bonus.tgz
 *.log
+.vite-ssg-temp

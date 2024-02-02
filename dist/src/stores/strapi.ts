@@ -1,6 +1,6 @@
 import { defineStore } from "pinia"
+import { AxiosRequestConfig } from "axios"
 import axios from "axios"
-import dayjs from "dayjs"
 import jwt_decode from "jwt-decode"
 import { StrapiHTTPHeader, StrapiUser, StrapiAuthenticationError } from "@/types/strapi-store"
 
@@ -17,8 +17,6 @@ const _setUrl = () :string => {
     if (import.meta.env.VITE_STRAPI_REST_ENDPOINT[0] !== "/") {
         url = `${url}/`
     } 
-
-    url += import.meta.env.VITE_STRAPI_REST_ENDPOINT
     
     if (url[url.length - 1] === "/") {
         url = url.slice(0, -1)
@@ -98,11 +96,7 @@ export const Strapi = defineStore({
             const request = {
                 method: method,
                 headers: headers
-            } as {
-                method: string, 
-                headers?: StrapiHTTPHeader, 
-                data?: any
-            }
+            } as AxiosRequestConfig
 
             if (data) {
                 request.data = JSON.stringify(data, null, 2)
@@ -406,6 +400,7 @@ export const Strapi = defineStore({
         logout() {
             this.self = undefined
             this.authToken = null
+            
             localStorage.removeItem("auth_token")
         }
     },

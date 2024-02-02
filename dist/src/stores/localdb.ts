@@ -1,7 +1,14 @@
 import { defineStore } from "pinia"
-import PouchDB from "pouchdb-browser"
+// import PouchDB from "pouchdb-browser"
 import _ from "lodash"
-const db = new PouchDB("local-db")
+let db: PouchDB.Database | null = null;
+
+if (typeof window !== 'undefined') {
+    (async () => {
+        const PouchDB = await import("pouchdb-browser");
+        db = new PouchDB.default("local-db");
+    })();
+}
 
 
 export const localDB = defineStore({
@@ -16,6 +23,10 @@ export const localDB = defineStore({
     actions: {
         update() {
             return new Promise((resolve, reject) => {
+                if (!db){ 
+                    return
+                }
+                
                 const doc = _.merge({},_.pick( this.document, ["_id", "_rev"]))
                 db.put(doc).then((res) => {
                     this.document._rev = res.rev
@@ -26,6 +37,10 @@ export const localDB = defineStore({
         },
         load() {
             return new Promise((resolve, reject) => {
+                if (!db){ 
+                    return
+                }
+
                 db.allDocs({
                     include_docs: true,
                     attachments: true

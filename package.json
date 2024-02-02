@@ -1,6 +1,6 @@
 {
   "name": "create-jeff-frontend",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "A Vue3 app with Typescript, ESlint, PouchDB and various other features that will work out of the box with Strapi.",
   "main": "index.js",
   "scripts": {

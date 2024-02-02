@@ -1,6 +1,6 @@
 # Jeff frontend
 
-This is a boilerplate for a frontend application using Vue 3, Typescript, Vue Router, Pinia, Vite, Lodash, PouchDB, Sass, normalize.css & SocketIO. It can best be used with its backend counterpart Jeff-backend, which you can create with `yarn create jeff-backend`.
+This is a boilerplate for a frontend application using Vue3, Typescript, Vue Router, Pinia, Vite-SSG, Lodash, PouchDB, Sass, normalize.css & SocketIO. It is has default support for using Strapi as the back-end.
 
 ## Features
 
@@ -11,11 +11,12 @@ This is a boilerplate for a frontend application using Vue 3, Typescript, Vue Ro
 - [Pinia](https://github.com/vuejs/pinia)
 - [PouchDB](https://github.com/pouchdb/pouchdb)
 - [Sass](https://github.com/sass/sass)
+- [SocketIO](https://github.com/socketio/socket.io-client)
 - [TypeScript](https://github.com/microsoft/TypeScript)
+- [Vite-SSG](https://github.com/antfu/vite-ssg)
 - [Vite](https://github.com/vitejs/vite)
 - [Vue 3](https://github.com/vuejs/vue)
 - [Vue Router](https://github.com/vuejs/vue-router)
-- [SocketIO](https://github.com/socketio/socket.io-client)
 
 ## Getting started
 

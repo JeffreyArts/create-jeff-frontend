@@ -25,20 +25,27 @@
 <script lang="ts">
 import {defineComponent} from "vue"
 import strapiStore from "@/stores/strapi"
-import asciiLine from "@/components/ascii-line.vue"
 import resetPassword from "@/components/auth/reset-password.vue"
-import dayjs from "dayjs"
 import _ from "lodash"
 
 export default defineComponent ({ 
     name: "homePage",
-    components: { asciiLine, resetPassword},
+    components: { resetPassword},
     props: [],
     setup() {
         const Strapi = strapiStore()
         
 
-        return { Strapi     }
+        return { Strapi }
+    },
+    head: { 
+        title: "Password reset",
+        meta: [
+            {
+                name: "description",
+                content: "Page for resetting the password of the user",
+            },
+        ]
     },
     data() {
         return {

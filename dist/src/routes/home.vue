@@ -102,7 +102,7 @@ export default defineComponent ({
         const localDB = LocalDB()
         const Strapi = strapiStore()
 
-        return { localDB, Strapi}
+        return { localDB, Strapi }
     },
     data() {
         return {
@@ -110,6 +110,15 @@ export default defineComponent ({
             consoleEvents: [] as Array<string>,
             adminUrl: `${import.meta.env.VITE_STRAPI_REST_ENDPOINT}/admin/settings/users-permissions/roles`
         }
+    },
+    head: { 
+        title: "Home",
+        meta: [
+            {
+                name: "description",
+                content: "Lorem ipsum dolor samet...",
+            },
+        ]
     },
     computed: {
         currentDate() {

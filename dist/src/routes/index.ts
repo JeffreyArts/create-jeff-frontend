@@ -1,4 +1,3 @@
-import { createWebHistory, createRouter } from "vue-router"
 import Home from "@/routes/home.vue"
 import ResetPassword from "@/routes/auth/password-reset.vue"
 
@@ -16,10 +15,9 @@ const routes = [
 ]
 
 
-const router = createRouter({
-    history: createWebHistory(),
+const routerOptions = {
     routes,
-})
+}
 
-export default router
-
+export {routerOptions}
+export default routerOptions

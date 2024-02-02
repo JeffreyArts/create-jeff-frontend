@@ -7,6 +7,7 @@ const blacklist = [
     'node_modules',
     'package-lock.json',
     'dist',
+    '.env',
 ]
 
 let inputDir, globalDir;
