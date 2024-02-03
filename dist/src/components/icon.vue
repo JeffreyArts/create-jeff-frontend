@@ -28,7 +28,7 @@ export default defineComponent({
             iconList: {
                 cross: iconCross,
                 calendar: iconCalendar,
-            } as { [key: string]: string}
+            } as { [key: string]: string }
         }
     },
 })

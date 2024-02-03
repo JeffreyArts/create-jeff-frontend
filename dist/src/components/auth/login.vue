@@ -58,7 +58,7 @@ export default defineComponent({
             email: "",
             password: "",
             forgotPassword: false,
-            error: null as null | {message: string},
+            error: null as null | { message: string },
             errorMessages: {
                 missing_credentials: "Please enter your username and password",
                 missing_username: "Please enter your username",
@@ -76,7 +76,7 @@ export default defineComponent({
             if (!this.forgotPassword) {
                 this.Strapi.authenticateUser(this.email, this.password)
                     .then()
-                    .catch(err => {
+                    .catch((err) => {
                         console.log(err)
                         this.error =  err
                     })
@@ -86,7 +86,7 @@ export default defineComponent({
                     .then(() => {
                         this.$emit("requestPasswordSuccess", this.email)
                     })
-                    .catch(err => {
+                    .catch((err) => {
                         console.log(err)
                         this.error =  err
                     })
@@ -96,6 +96,6 @@ export default defineComponent({
 })
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 
 </style>

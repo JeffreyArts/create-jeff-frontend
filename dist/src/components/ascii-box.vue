@@ -2,7 +2,7 @@
 use the .ascii-box-content for styling the content inside the box. Best way is to style it via the parent component/route that you put this element in.
  -->
 
-<template>
+ <template>
     <div class="ascii-box" ref="box">
         <div class="ascii-box-top" ref="top" />
         <div class="ascii-box-left" ref="left" />
@@ -151,11 +151,6 @@ export default defineComponent({
     word-wrap: anywhere;
     overflow: hidden;
     transition: $transitionFast;
-}
-
-.ascii-box-content {
-    // max-height: 100px;
-    // oaverflow: auto;
 }
 
 .ascii-box-bottom {

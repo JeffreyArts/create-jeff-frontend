@@ -42,6 +42,7 @@ use the .ascii-box-content for styling the content inside the box. Best way is t
 <script lang="ts">
 import { defineComponent } from "vue"
 import StrapiStore  from "@/stores/strapi"
+import { AxiosResponse, AxiosError } from "axios"
 
 
 export default defineComponent({
@@ -63,8 +64,11 @@ export default defineComponent({
             method: "GET",
             path: "",
             requestBody: "",
-            output: null as any
-            
+            output: {
+                method: "",
+                url: "",
+                data: {}
+            }
         }
     },
     methods: {
@@ -79,7 +83,6 @@ export default defineComponent({
 
             if (!request) return
 
-            this.output = {}
             let path = this.path
             if (path[0] === "/") {
                 path = path.slice(1)
@@ -87,13 +90,13 @@ export default defineComponent({
             this.output.method = this.method
             this.output.url = this.Strapi.url + "/" + path
 
-            request.then((response: any) => {
+            request.then((response: AxiosResponse) => {
                 this.output.data = response
-            }).catch((error: any) => {
-                this.output.data = error.response
+            }).catch((error: AxiosError) => {
+                this.output.data = error
             })
         },
-        printJSON(json: any) {
+        printJSON(json: object) {
             return JSON.stringify(json, null, 4)
         }
     }

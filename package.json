@@ -1,6 +1,6 @@
 {
   "name": "create-jeff-frontend",
-  "version": "0.0.8",
+  "version": "0.1.0",
   "description": "A Vue3 app with Typescript, ESlint, PouchDB and various other features that will work out of the box with Strapi.",
   "main": "index.js",
   "scripts": {
@@ -10,11 +10,13 @@
   "bin": {
     "create-jeff-frontend": "./index.js"
   },
-  "engines" : { 
-    "node" : ">=16.0.0"
+  "engines": {
+    "node": ">=16.0.0"
   },
   "author": "Jeffrey Arts <contact@jeffreyarts.nl>",
   "license": "MIT",
-  "dependencies": {},
-  "private": false
+  "private": false,
+  "devDependencies": {
+    "@stylistic/eslint-plugin-ts": "^1.5.4"
+  }
 }

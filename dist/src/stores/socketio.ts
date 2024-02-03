@@ -11,7 +11,7 @@ export const socketIO = defineStore({
     }),
     actions: {
        
-        emit(event:string, data:any) {
+        emit(event:string, data: object | string) {
             if (!this.socket) {
                 console.error("Init socket first")
                 return

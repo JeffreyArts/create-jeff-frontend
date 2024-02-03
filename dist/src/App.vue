@@ -10,8 +10,8 @@ const strapi = Strapi()
 const localDB = LocalDB()
 
 if (typeof window !== "undefined") {
-  localDB.load()
-  strapi.init()
+    localDB.load()
+    strapi.init()
 }
 </script>
 

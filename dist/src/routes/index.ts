@@ -19,5 +19,5 @@ const routerOptions = {
     routes,
 }
 
-export {routerOptions}
+export { routerOptions }
 export default routerOptions

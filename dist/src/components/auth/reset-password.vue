@@ -42,7 +42,7 @@ export default defineComponent({
     data: () => {
         return {
             password: "",
-            error: null as null | {message: string},
+            error: null as null | { message: string },
             errorMessages: {
                 unknown: "Unknown server error, please try again later"
             }
@@ -59,7 +59,7 @@ export default defineComponent({
 
                     this.$emit("resetSuccess")
                 })
-                .catch(err => {
+                .catch((err) => {
                     console.log(err)
                     this.error =  err
                 })
@@ -68,6 +68,6 @@ export default defineComponent({
 })
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 
 </style>

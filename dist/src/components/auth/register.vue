@@ -53,7 +53,7 @@ export default defineComponent({
             username: "",
             email: "",
             password: "",
-            error: null as null | {message: string},
+            error: null as null | { message: string },
             errorMessages: {
                 missing_credentials: "Please enter your username and password",
                 missing_username: "Please enter your username",
@@ -71,7 +71,7 @@ export default defineComponent({
 
             this.Strapi.registerUser(this.username, this.email, this.password)
                 .then()
-                .catch(err => {
+                .catch((err) => {
                     console.log(err)
                     this.error =  err
                 })
@@ -81,6 +81,6 @@ export default defineComponent({
 })
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 
 </style>

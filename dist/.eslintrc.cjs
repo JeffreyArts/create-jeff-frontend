@@ -15,28 +15,17 @@ module.exports = {
     },
     "plugins": [
         "vue",
-        "@typescript-eslint"
+        "@typescript-eslint",
+        "@stylistic/ts"
     ],
     "rules": {
-        "indent": [
-            "error",
-            4
-        ],
-        "linebreak-style": [
-            "error",
-            "unix"
-        ],
-        "quotes": [
-            "error",
-            "double"
-        ],
-        "semi": [
-            "error",
-            "never"
-        ],
-        "vue/multi-word-component-names": ["error", {
-            "ignores": ["icon"]
-        }],
+        "@stylistic/ts/indent": ["error", 4],
+        "@stylistic/ts/quotes": [ "error", "double" ],
+        "@stylistic/ts/semi": [ "error", "never" ],
+        "@stylistic/ts/object-curly-spacing": [ "error", "always", { "objectsInObjects": false }],
+
+        "linebreak-style": [ "error", "unix" ],
+        "vue/multi-word-component-names": ["error", { "ignores": ["icon"] }],
         "vue/order-in-components": ["error", {
             "order": [
 			  "el",

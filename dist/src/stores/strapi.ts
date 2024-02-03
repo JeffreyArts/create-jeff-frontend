@@ -1,5 +1,5 @@
 import { defineStore } from "pinia"
-import { AxiosRequestConfig } from "axios"
+import { AxiosRequestConfig, AxiosResponse,AxiosError } from "axios"
 import axios from "axios"
 import jwt_decode from "jwt-decode"
 import { StrapiHTTPHeader, StrapiUser, StrapiAuthenticationError } from "@/types/strapi-store"
@@ -56,7 +56,7 @@ export const Strapi = defineStore({
 
             if (this.authToken) {
                 if (_validateAuthToken(this.authToken)) {
-                    this.GET("/users/me").then(res => {
+                    this.GET("/users/me").then((res) => {
                         this.self = res.data
                     }).catch(() => {
                         this.self = undefined
@@ -74,13 +74,22 @@ export const Strapi = defineStore({
         DELETE(path: string) {
             return this.REST("DELETE", path)
         },
-        POST(path: string, data?: any) {
+        POST(path: string, data?: object | string) {
+            if (typeof data === "object") {
+                data = JSON.stringify(data)
+            }
             return this.REST("POST", path, data)
         },
-        PUT(path: string, data?: any) {
+        PUT(path: string, data?: object | string) {
+            if (typeof data === "object") {
+                data = JSON.stringify(data)
+            }
             return this.REST("PUT", path, data)
         },
-        REST(method: string, path: string, data?: any) {
+        REST(method: string, path: string, data?: object | string) {
+            if (typeof data === "object") {
+                data = JSON.stringify(data)
+            }
             const headers = {
                 "Content-Type": "application/json",
             } as StrapiHTTPHeader
@@ -104,7 +113,7 @@ export const Strapi = defineStore({
             return axios(`${this.url}/${path}`, request)
 
         },
-        _saveUserData(response: any) {
+        _saveUserData(response: AxiosResponse) {
             localStorage.setItem("auth_token", response.data.jwt)
             this.self = response.data.user
             this.authToken = response.data.jwt
@@ -158,9 +167,9 @@ export const Strapi = defineStore({
                     this._saveUserData(response)
                     resolve(response.data)
     
-                } catch (err: any) {
+                } catch (err) {
     
-                    if (err.response && err.response.data && err.response.data.error) {
+                    if (err instanceof AxiosError && err.response && err.response.data && err.response.data.error) {
                         const serverError = err.response.data.error
                 
                         if (serverError.details && serverError.details.errors && serverError.details.errors.length === 2) {
@@ -233,9 +242,9 @@ export const Strapi = defineStore({
                     this._saveUserData(response)
                     resolve(response.data)
     
-                } catch (err: any) {
+                } catch (err) {
     
-                    if (err.response && err.response.data && err.response.data.error) {
+                    if (err instanceof AxiosError && err.response && err.response.data && err.response.data.error) {
                         const serverError = err.response.data.error
                         
                         if (serverError.message.toLowerCase().includes("required")) {
@@ -308,9 +317,9 @@ export const Strapi = defineStore({
     
                     resolve(response.data)
     
-                } catch (err: any) {
+                } catch (err) {
     
-                    if (err.response && err.response.data && err.response.data.error) {
+                    if (err instanceof AxiosError && err.response && err.response.data && err.response.data.error) {
                         const serverError = err.response.data.error
                         
                         if (serverError.message.toLowerCase().includes("valid email")) {
@@ -376,9 +385,9 @@ export const Strapi = defineStore({
                     this._saveUserData(response)
                     resolve(response.data)
     
-                } catch (err: any) {
+                } catch (err) {
     
-                    if (err.response && err.response.data && err.response.data.error) {
+                    if (err instanceof AxiosError && err.response && err.response.data && err.response.data.error) {
                         const serverError = err.response.data.error
                         
                         if (serverError.message.toLowerCase().includes("incorrect code")) {

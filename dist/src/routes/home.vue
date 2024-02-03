@@ -82,7 +82,7 @@
 
 
 <script lang="ts">
-import {defineComponent} from "vue"
+import { defineComponent } from "vue"
 import LocalDB from "@/stores/localdb"
 import strapiStore from "@/stores/strapi"
 import gsap from "gsap"
@@ -92,11 +92,10 @@ import restDemo from "@/components/rest-demo.vue"
 import register from "@/components/auth/register.vue"
 import authentication from "@/components/auth/login.vue"
 import dayjs from "dayjs"
-import _ from "lodash"
 
 export default defineComponent ({ 
     name: "homePage",
-    components: {Icon, asciiLine, restDemo, authentication,register},
+    components: { Icon, asciiLine, restDemo, authentication,register },
     props: [],
     setup() {
         const localDB = LocalDB()
@@ -147,17 +146,7 @@ export default defineComponent ({
         })
     },
     methods: {
-        postRequest(data: any) {
-            this.consoleEvents.push(`${dayjs().format("HH:mm:ss")} | Post request send`)
-            fetch(`${import.meta.env.VITE_REST_API}/test`, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(data)
-            })
-        },
-        logout(event: Event) {
+        logout() {
             this.Strapi.logout()
         },
         showConfirmMessage(email:string) {
@@ -247,7 +236,6 @@ export default defineComponent ({
         display: inline-block;
     }   
     .left {
-        float: left;
         font-weight: bold;
         display: inline-block;
     }

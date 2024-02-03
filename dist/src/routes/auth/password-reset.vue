@@ -23,20 +23,24 @@
 
 
 <script lang="ts">
-import {defineComponent} from "vue"
+import { defineComponent } from "vue"
 import strapiStore from "@/stores/strapi"
 import resetPassword from "@/components/auth/reset-password.vue"
-import _ from "lodash"
 
 export default defineComponent ({ 
     name: "homePage",
-    components: { resetPassword},
+    components: { resetPassword },
     props: [],
     setup() {
         const Strapi = strapiStore()
         
 
         return { Strapi }
+    },
+    data() {
+        return {
+            code: "",
+        }
     },
     head: { 
         title: "Password reset",
@@ -47,22 +51,17 @@ export default defineComponent ({
             },
         ]
     },
-    data() {
-        return {
-            code: "",
-        }
-    },
     created() {
         // set code based on query parameter code
         if (typeof this.$route.query.code == "string") {
             this.code = this.$route.query.code
         } else {
-            this.$router.push({path: "/"})
+            this.$router.push({ path: "/" })
         }
     },
     methods: {
         redirect() {
-            this.$router.push({path: "/"})
+            this.$router.push({ path: "/" })
         }
     }
 })
@@ -71,6 +70,5 @@ export default defineComponent ({
 
 <style lang="scss">
 @import "@/assets/scss/variables.scss";
-
 
 </style>
