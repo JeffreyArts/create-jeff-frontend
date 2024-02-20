@@ -26,13 +26,14 @@ use the .ascii-box-content for styling the content inside the box. Best way is t
 
             </div>
             <div class="button-container">
-                <button type="submit">
-                    Submit
-                </button>
+                <ascii-button type="submit">
+                    {{ $t('component::rest-demo.submit') }}
+                </ascii-button>
             </div>
         </form>
-        <div class="rest-demo-result" v-if="output">
-            Output of the <strong>{{ output.method }}</strong> request to <em>{{ output.url }}</em>.
+        
+        <div class="rest-demo-result" v-if="output.url">
+            <span v-html="$t('component::rest-demo.outputMessage', { method: output.method, url: output.url })" />
             <pre v-html="printJSON(output.data)" />
         </div>    
     </div>
@@ -43,10 +44,13 @@ use the .ascii-box-content for styling the content inside the box. Best way is t
 import { defineComponent } from "vue"
 import StrapiStore  from "@/stores/strapi"
 import { AxiosResponse, AxiosError } from "axios"
-
+import asciiButton from "@/components/ascii-button.vue"
 
 export default defineComponent({
     name: "rest-demo",
+    components: {
+        asciiButton
+    },
     props: {
         character: {
             type: String,
@@ -56,7 +60,7 @@ export default defineComponent({
     },
     setup() {
         const Strapi = StrapiStore()
-
+        
         return { Strapi }
     },
     data: () => {
@@ -80,16 +84,16 @@ export default defineComponent({
             } else {
                 request = this.Strapi.REST(this.method, this.path)
             }
-
+            
             if (!request) return
-
+            
             let path = this.path
             if (path[0] === "/") {
                 path = path.slice(1)
             }
             this.output.method = this.method
             this.output.url = this.Strapi.url + "/" + path
-
+            
             request.then((response: AxiosResponse) => {
                 this.output.data = response
             }).catch((error: AxiosError) => {

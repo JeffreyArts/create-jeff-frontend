@@ -6,25 +6,25 @@ use the .ascii-box-content for styling the content inside the box. Best way is t
     <div class="register-form-container">
         <form class="register-form" @submit="submitForm">
             <div class="register-form-field">
-                <label for="">E-mailadres</label>
+                <label for="">{{ $t('component::auth/register.email') }}</label>
                 <input type="text" v-model="email">
             </div>
             <div class="register-form-field">
-                <label for="">Username</label>
+                <label for="">{{ $t('component::auth/register.username') }}</label>
                 <input type="text" v-model="username">
             </div>
             <div class="register-form-field">
-                <label for="">Password</label>
+                <label for="">{{ $t('component::auth/register.password') }}</label>
                 <input type="password" v-model="password" minlength="6">
             </div>
             <div class="register-form-field">
-                <button type="submit">
-                    Register
-                </button>
+                <ascii-button type="submit">
+                    {{ $t('component::auth/register.register') }}
+                </ascii-button>
             </div>
         </form>
-        <div class="register-form-error" v-if="error">
-            <p v-html="error.message" />
+        <div class="register-form-error" v-if="errors">
+            <p v-html="err.message" v-for="(err, k) in errors" :key="k"/>
         </div>    
     </div>
 </template>
@@ -33,10 +33,13 @@ use the .ascii-box-content for styling the content inside the box. Best way is t
 <script lang="ts">
 import { defineComponent } from "vue"
 import strapiStore from "@/stores/strapi"
-
+import asciiButton from "@/components/ascii-button.vue"
 
 export default defineComponent({
     name: "register-form",
+    components: {
+        asciiButton
+    },
     props: {
         character: {
             type: String,
@@ -53,7 +56,7 @@ export default defineComponent({
             username: "",
             email: "",
             password: "",
-            error: null as null | { message: string },
+            errors: null as null | Array<{ message: string }>,
             errorMessages: {
                 missing_credentials: "Please enter your username and password",
                 missing_username: "Please enter your username",
@@ -67,13 +70,13 @@ export default defineComponent({
     methods: {
         submitForm($event: Event) {
             $event.preventDefault()
-            this.error = null
+            this.errors = null
 
             this.Strapi.registerUser(this.username, this.email, this.password)
                 .then()
                 .catch((err) => {
                     console.log(err)
-                    this.error =  err
+                    this.errors =  err
                 })
             this.$emit("registerSuccess")
         },

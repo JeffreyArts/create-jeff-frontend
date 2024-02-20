@@ -2,17 +2,17 @@
 use the .ascii-box-content for styling the content inside the box. Best way is to style it via the parent component/route that you put this element in.
  -->
 
-<template>
+ <template>
     <div class="reset-password-container">
         <form class="reset-password" @submit="submitForm">
             <div class="reset-password-field">
-                <label for="">Password</label>
+                <label for="">{{ $t('component::auth/resetPassword.newPassword') }}</label>
                 <input type="password" v-model="password" minlength="6">
             </div>
             <div class="reset-password-field">
-                <button type="submit">
-                    Reset password
-                </button>
+                <ascii-button type="submit">
+                    {{ $t('component::auth/resetPassword.resetPassword') }}
+                </ascii-button>
             </div>
         </form>
         <div class="reset-password-error" v-if="error">
@@ -25,10 +25,14 @@ use the .ascii-box-content for styling the content inside the box. Best way is t
 <script lang="ts">
 import { defineComponent } from "vue"
 import strapiStore from "@/stores/strapi"
+import asciiButton from "@/components/ascii-button.vue"
 
 
 export default defineComponent({
     name: "reset-password",
+    components: {
+        asciiButton
+    },
     props: {
         code: {
             type: String,
