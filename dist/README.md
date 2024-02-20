@@ -13,8 +13,8 @@ This is a boilerplate for a frontend application using Vue3, Typescript, Vue Rou
 - [Sass](https://github.com/sass/sass)
 - [SocketIO](https://github.com/socketio/socket.io-client)
 - [TypeScript](https://github.com/microsoft/TypeScript)
-- [Vite-SSG](https://github.com/antfu/vite-ssg)
 - [Vite](https://github.com/vitejs/vite)
+- [Vite-SSG](https://github.com/antfu/vite-ssg)
 - [Vue 3](https://github.com/vuejs/vue)
 - [Vue Router](https://github.com/vuejs/vue-router)
 
@@ -43,6 +43,10 @@ $ yarn build
 This will build the project, and output the files to the dist directory.
 
 
+### Strapi
+
+This project has authentication support intergrated for Strapi 4.20.1. Modify the `.env` file to specify the desired endpoint for the Strapi back-end (VITE_STRAPI_REST_ENDPOINT=http://localhost:1337/api). More details about the way Strapi handles its users can be found in [https://docs.strapi.io/dev-docs/plugins/users-permissions](their documentation)
+
 ## Deployment
 By default this application has a build-in feature to deploy the static generated website to a remote server. For this to work, you'll have to configure a `.env.staging` or `.env.production` file. Which is basically a copy of the `.env` or `.env.local` file, with the addition of the following 4 lines:
 
@@ -59,15 +63,19 @@ MAX_BACKUPS=8
 
 At the location of DEPLOYMENT_PATH the deployment script will create a `current` directory where the project is actually located. Whenever you'll do a future deployment, the current directory will be renamed to bk_<timecode> and the new version will be placed again at the current directory. The number that you specify at MAX_BACKUPS will determine how many old versions will be kept. Versions older than the number specified here will be removed automatically.
 
-With the configuration of these 4 lines, you can now deploy the project with one of the following command. For more information about this deployment script, I'd like to refer you to [this page](https://github.com/JeffreyArts/server/wiki/Vite-website-setup). This page will go into more depth, and also provides you with a basis for how you could set-up the server environment on a remote (VPS) server.
+With the configuration of these 4 lines, you can now deploy the project with one of the following commands. 
+
+For more information about this deployment script, I'd like to refer you to [this page](https://github.com/JeffreyArts/server/wiki/Vite-website-setup). This page will go into more depth, and also provides you with a basis for how you could set-up the server environment on a remote (VPS) server.
 
 
 ```
-$ npm run deploy 
+$ npm run deploy # Using .env.staging
+$ npm run production # Using .env.producttion
 
 or 
 
-$ yarn deploy
+$ yarn deploy # Using .env.staging
+$ yarn production # Using .env.production
 ```
 
 

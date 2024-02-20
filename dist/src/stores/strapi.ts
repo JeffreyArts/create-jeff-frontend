@@ -1,6 +1,7 @@
 import { defineStore } from "pinia"
 import { AxiosRequestConfig, AxiosResponse,AxiosError } from "axios"
 import axios from "axios"
+import _ from "lodash"
 import jwt_decode from "jwt-decode"
 import { StrapiHTTPHeader, StrapiUser, StrapiAuthenticationError } from "@/types/strapi-store"
 
@@ -75,9 +76,6 @@ export const Strapi = defineStore({
             return this.REST("DELETE", path)
         },
         POST(path: string, data?: object | string) {
-            if (typeof data === "object") {
-                data = JSON.stringify(data)
-            }
             return this.REST("POST", path, data)
         },
         PUT(path: string, data?: object | string) {
@@ -87,9 +85,6 @@ export const Strapi = defineStore({
             return this.REST("PUT", path, data)
         },
         REST(method: string, path: string, data?: object | string) {
-            if (typeof data === "object") {
-                data = JSON.stringify(data)
-            }
             const headers = {
                 "Content-Type": "application/json",
             } as StrapiHTTPHeader
@@ -107,7 +102,7 @@ export const Strapi = defineStore({
                 headers: headers
             } as AxiosRequestConfig
 
-            if (data) {
+            if (typeof data !== "string") {
                 request.data = JSON.stringify(data, null, 2)
             }
             return axios(`${this.url}/${path}`, request)
@@ -128,7 +123,11 @@ export const Strapi = defineStore({
                 blocked:  "Your account has been blocked, please contact an administrator",
                 unknown: "Unknown server error, please try again later"
             }
-            let error: StrapiAuthenticationError | undefined
+            let error = {} as {
+                type: string,
+                message: string,
+                details?: string
+            }
 
             return new Promise(async (resolve, reject) => {
                 try {
@@ -202,13 +201,11 @@ export const Strapi = defineStore({
         },
         registerUser(username:string, email: string, password:string) {
             const errorMessages = {
-                missing_required_fields: "Missing required fields",
-                invalid_email: "Please enter a valid e-mailaddress",
-                duplicate_entry: "An user already exist with this e-mailaddres or username",
                 not_confirmed: "To complete your registration, please confirm your account via the e-mail we have send you to the provided e-mailaddress",
                 unknown: "Unknown server error, please try again later"
             }
-            let error: StrapiAuthenticationError | undefined
+            let error: StrapiAuthenticationError
+            const errors = [] as Array<string>
 
             return new Promise(async (resolve, reject) => {
                 try {
@@ -221,70 +218,43 @@ export const Strapi = defineStore({
     
                     if (!response.data) {
                         throw {
-                            type: "unknown",
-                            message: errorMessages["unknown"],
-                            details: "Missing response data"
+                            name: "unknown",
+                            message: "Missing response data"
                         }
                     }
 
                     // You can remove this check if you want the user to automatically login after registration
                     if (!response.data.user.confirmed) {
                         error = {
-                            type: "not_confirmed",
+                            name: "not_confirmed",
                             message: errorMessages["not_confirmed"]
                         }
                     }
     
-                    if (error && error.type) {
+                    if (error) {
                         throw error
                     }
     
                     this._saveUserData(response)
                     resolve(response.data)
     
-                } catch (err) {
+                } catch (err: unknown | any) {
     
                     if (err instanceof AxiosError && err.response && err.response.data && err.response.data.error) {
                         const serverError = err.response.data.error
-                        
-                        if (serverError.message.toLowerCase().includes("required")) {
-                            error = {
-                                type: "missing_required_fields",
-                                message: errorMessages["missing_required_fields"],
-                                details: []
-                            }
-                            for (const err of serverError.details.errors) {
-                                error.details.push(err.path[0])
-                            }
-                        } else if (serverError.message.toLowerCase().includes("valid email")) {
-                            
-                            error = {
-                                type: "invalid_email",
-                                message: errorMessages["invalid_email"]
-                            }
-                            
-                        } else if (serverError.name === "ApplicationError" && serverError.message.includes("taken")) {
-                            
-                            error = {
-                                type: "duplicate_entry",
-                                message: errorMessages["duplicate_entry"]
-                            }
-                            
-                        } else if (serverError.name === "ValidationError" && serverError.message.includes("at least")) {
 
-                            error = {
-                                type: "invalid_password_length",
-                                message: serverError.message
+                        if (serverError.details && _.isArray(serverError.details.errors) ) {
+                            for (const err of serverError.details.errors) {
+                                errors.push(err)
                             }
-                            
                         } else {
-                            error = {
-                                type: "unknown",
-                                message: errorMessages["unknown"]
-                            }
+                            errors.push(serverError)
                         }
-                    }
-                    reject(error)
+                    } else if (err?.name ) {
+                        errors.push(err)
+                    } 
+
+                    reject(errors)
                 }
             })
         },
@@ -294,60 +264,47 @@ export const Strapi = defineStore({
                 invalid_email: "Please enter a valid e-mailaddress",
                 unknown: "Unknown server error, please try again later"
             }
-            let error: StrapiAuthenticationError | undefined
+
+            const errors = [] as Array<string>
 
             return new Promise(async (resolve, reject) => {
                 try {
+                    if (!email) {
+                        throw {
+                            name: "missing_required_fields",
+                            message: errorMessages["missing_required_fields"],
+                            details: "Missing email input"
+                        } as StrapiAuthenticationError
+                    }
+                    
                     const response = await this.POST("/auth/forgot-password", {
                         email: email
                     })
     
-    
                     if (!response.data) {
                         throw {
-                            type: "unknown",
+                            name: "unknown",
                             message: errorMessages["unknown"],
                             details: "Missing response data"
-                        }
-                    }
-    
-                    if (error && error.type) {
-                        throw error
+                        } as StrapiAuthenticationError
                     }
     
                     resolve(response.data)
     
-                } catch (err) {
+                } catch (err: StrapiAuthenticationError | unknown) {
     
                     if (err instanceof AxiosError && err.response && err.response.data && err.response.data.error) {
                         const serverError = err.response.data.error
                         
-                        if (serverError.message.toLowerCase().includes("valid email")) {
-                            error = {
-                                type: "invalid_email",
-                                message: errorMessages["invalid_email"],
-                                details: []
-                            }
+                        if (serverError.message) {
                             for (const err of serverError.details.errors) {
-                                error.details.push(err.path[0])
-                            }
-                        } else if (serverError.message.toLowerCase().includes("required")) {
-                            error = {
-                                type: "missing_required_fields",
-                                message: errorMessages["missing_required_fields"],
-                                details: []
-                            }
-                            for (const err of serverError.details.errors) {
-                                error.details.push(err.path[0])
+                                errors.push(err)
                             }
                         } else {
-                            error = {
-                                type: "unknown",
-                                message: errorMessages["unknown"]
-                            }
+                            errors.push(errorMessages["unknown"])
                         }
                     }
-                    reject(error)
+                    reject(errors)
                 }
             })
         },

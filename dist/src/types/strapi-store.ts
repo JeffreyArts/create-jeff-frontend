@@ -15,7 +15,14 @@ export interface StrapiUser {
 }
 
 export interface StrapiAuthenticationError {
+    status?: number;
+    name: string;
     message: string;
-    type: string;
-    details?: any;
+    details?: {
+        errors?: Array<{
+            message: string,
+            name: string,
+            path: Array<string>
+        }>
+    };
 }

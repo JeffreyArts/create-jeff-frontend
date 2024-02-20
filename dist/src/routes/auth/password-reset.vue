@@ -25,11 +25,15 @@
 <script lang="ts">
 import { defineComponent } from "vue"
 import strapiStore from "@/stores/strapi"
+import asciiLine from "@/components/ascii-line.vue"
 import resetPassword from "@/components/auth/reset-password.vue"
 
 export default defineComponent ({ 
     name: "homePage",
-    components: { resetPassword },
+    components: { 
+        resetPassword,
+        asciiLine 
+    },
     props: [],
     setup() {
         const Strapi = strapiStore()
@@ -56,7 +60,7 @@ export default defineComponent ({
         if (typeof this.$route.query.code == "string") {
             this.code = this.$route.query.code
         } else {
-            this.$router.push({ path: "/" })
+            this.redirect()
         }
     },
     methods: {

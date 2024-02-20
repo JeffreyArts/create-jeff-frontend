@@ -12,6 +12,7 @@ This is a boilerplate project for a Vue3 app that is configured to support the f
 - SVG Icons
 - Typescript
 - Vite
+- Vite-SSG
 - Vue 3
 - Vue Router
 
