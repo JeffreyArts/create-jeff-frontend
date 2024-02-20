@@ -23,6 +23,7 @@ node_modules
 *.sw?
 dist/dist
 dist/package-lock.json
+dist/.env 
 
 package-lock.json
 yarn.lock
