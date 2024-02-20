@@ -2,7 +2,7 @@
 use the .ascii-box-content for styling the content inside the box. Best way is to style it via the parent component/route that you put this element in.
  -->
 
-<template>
+ <template>
     <div class="rest-demo-container">
         <form class="rest-demo" @submit="submitForm">
             <div class="row">
