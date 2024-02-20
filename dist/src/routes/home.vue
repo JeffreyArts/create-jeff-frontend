@@ -4,71 +4,73 @@
             
             <h1 class="home-title">
                 <span class="left">
-                    Jeff-frontend boilerplate
+                    {{ $t('route::home.title') }}
                 </span>
                 <span class="right">
-                    <Icon type="calendar" />{{ currentDate }}
+                    <languageSelector />
                 </span>
             </h1>
-
-            <ascii-line character="-"/>
-
+            
+            <ascii-line character="╤"/>
+            
             <div class="home-description">
                 <p>
-                    This is a boilerplate for a frontend application using Vue 3, Typescript, Vue Router, Pinia, Vite, Lodash, PouchDB, Sass & normalize.css.
+                    {{ $t('route::home.description[0]') }}
                 </p>
-                <p>
-                    It is made as a scaffolding framework to quickly get up and running to develop a webapplication build upon the headless <a href="https://strapi.io">Strapi</a> CMS.
-                </p>
+                <p v-html="$t('route::home.description[1]')" />
             </div>
-
-                
+            
+            
             <ascii-line class="divider-line" character="="/>
-
+            
             <div class="strapi-test">
-                <h1>Test Strapi REST connection</h1>
-                <em>Configure the .env file of your project to match it with the right Strapi server configuration.</em>
+                
+                <h1>{{ $t('route::home.strapi-test.title') }}</h1>
+                <em>{{ $t('route::home.strapi-test.subtitle') }}</em>
                 <br>
                 <br>
                 <rest-demo />
 
                 <details>
-                    <summary>Route inspiration</summary>
-                    <p>Some routes you can use to test the connection.</p>
+                    <summary>{{ $t('route::home.strapi-test.details.title') }}</summary>
+                    <p>{{ $t('route::home.strapi-test.details.subtitle') }}</p>
                     <ul>
-                        <li>/users/me - Returns details of the authorized user</li>
-                        <li>/auth/local/register - Register as a new user</li>
-                        <li>/auth/forgot-password - Request password reset flow</li>
+                        <li>{{ $t(`route::home.strapi-test.details.paths[0]`) }}</li>
+                        <li>{{ $t(`route::home.strapi-test.details.paths[1]`) }}</li>
+                        <li>{{ $t(`route::home.strapi-test.details.paths[2]`) }}</li>
                         <li>...</li>
                     </ul>
-                    <p>Look in the <a :href="adminUrl" target="_blank">Strapi admin panel</a> for more details upon the available endpoints <span class="highlight">Settings</span> &gt; <span class="highlight">Users & Permissions plugin</span> &gt; <span class="highlight">Roles</span></p>
+                    <p>
+                        <span v-html="$t(`route::home.strapi-test.details.footnote`, { adminUrl}) " />&nbsp;
+                        <span class="highlight">Settings</span> &gt; <span class="highlight">Users & Permissions plugin</span> &gt; <span class="highlight">Roles</span></p>
                 </details>
             </div>
 
             <ascii-line class="divider-line" character="~"/>
 
             <div class="strapi-test">
-                <h1>Test Strapi authentication</h1>
+                <h1>{{ $t('route::home.strapi-auth-test.title') }}</h1>
                 <div class="test-auth-container">
 
                     <div class="test-auth-section">
                         <div class="unauthenticated" v-if="!Strapi.self && !confirmMessage">
-                            <h3>Login</h3>
+                            <h3>{{ $t('route::home.strapi-auth-test.login') }}</h3>
                             <authentication @requestPasswordSuccess="showConfirmMessage"/>
                         </div>
                         <div class="authenticated" v-if="Strapi.self && !confirmMessage">
-                            <h3>Welcome {{ Strapi.self.username }}</h3>
-                            <button @click="logout">
-                                Logout
-                            </button>
+                            <h3>{{ $t('route::home.strapi-auth-test.welcome', { username: Strapi.self.username}) }}</h3>
+                            <ascii-button @click="logout">
+                                {{ $t('route::home.strapi-auth-test.logout') }}
+                            </ascii-button>
                         </div>
                         <div v-if="confirmMessage">
-                            If there is an existing account for {{ confirmMessage }}, than there will be an e-mail on its way with a password reset link.
+                            {{ $t('route::home.strapi-auth-test.confirmMessage', { confirmMessage }) }}
                         </div>
                     </div>
                     <div class="test-auth-section">
                         <div class="unauthenticated" v-if="!Strapi.self">
-                            <h3>Register account</h3>
+                            
+                            <h3>{{ $t('route::home.strapi-auth-test.registerAccount') }}</h3>
                             <register />
                         </div>
                         <pre v-if="Strapi.self">{{ Strapi.self }}</pre>
@@ -83,25 +85,30 @@
 
 <script lang="ts">
 import { defineComponent } from "vue"
-import LocalDB from "@/stores/localdb"
 import strapiStore from "@/stores/strapi"
 import gsap from "gsap"
-import Icon from "@/components/icon.vue"
 import asciiLine from "@/components/ascii-line.vue"
+import asciiButton from "@/components/ascii-button.vue"
 import restDemo from "@/components/rest-demo.vue"
 import register from "@/components/auth/register.vue"
+import languageSelector from "@/components/language-selector.vue"
 import authentication from "@/components/auth/login.vue"
-import dayjs from "dayjs"
 
 export default defineComponent ({ 
     name: "homePage",
-    components: { Icon, asciiLine, restDemo, authentication,register },
+    components: { 
+        asciiLine,
+        asciiButton,
+        restDemo,
+        languageSelector,
+        authentication,
+        register 
+    },
     props: [],
     setup() {
-        const localDB = LocalDB()
         const Strapi = strapiStore()
 
-        return { localDB, Strapi }
+        return { Strapi }
     },
     data() {
         return {
@@ -118,11 +125,6 @@ export default defineComponent ({
                 content: "Lorem ipsum dolor samet...",
             },
         ]
-    },
-    computed: {
-        currentDate() {
-            return dayjs().format("DD-MM-YYYY")
-        }
     },
     mounted() {
         gsap.fromTo(".home-title .right", {
@@ -185,51 +187,53 @@ export default defineComponent ({
         display: inline-block;
         padding: 0 5px;
         background-color: #eee;
-        border-radius: 3px;
+        border-radius: 3px;        
     }
+}
 
-    .strapi-test {
-        margin: 24px 0;
-    }
+.strapi-test {
+    margin: 24px 0;
+}
 
-    .test-auth-section {
-        width: 100%;
-        
-        .auth-form-field,
-        .register-form-field {
-            display: flex;
-            justify-content: flex-end;
-            align-items: center;
-            gap: 16px;
-        }
-        label {
-            display: inline-block;
-            width: 128px;
-        }
-        .auth-form-field,
-        .register-form-field {
-            margin-bottom: 8px;
-        }
-        input {
-            width: calc(100% - 128px);
-        }
-
-        @media (min-width: 640px) {
-            width: 50%;
-        }
-    }
-    .test-auth-container {
-        width: 100%;
+.test-auth-section {
+    width: 100%;
+    
+    .auth-form-field,
+    .register-form-field {
         display: flex;
-        gap: 32px;
+        justify-content: flex-end;
+        align-items: center;
+        gap: 16px;
     }
+    label {
+        display: inline-block;
+        width: 144px;
+    }
+    .auth-form-field,
+    .register-form-field {
+        margin-bottom: 8px;
+    }
+    input {
+        width: calc(100% - 144px);
+    }
+
+    @media (min-width: 640px) {
+        width: 50%;
+    }
+}
+.test-auth-container {
+    width: 100%;
+    display: flex;
+    gap: 32px;
 }
 
 .home-title {
     width: 100%;
-    text-align: right;
     font-size:16px;
     font-weight: normal;
+    display:flex;
+    justify-content: space-between;
+
     .icon {
         height: 1.2em;
         translate: -8px 4px;
@@ -249,6 +253,8 @@ export default defineComponent ({
 }
 
 .home-description {
+    position: relative;
+    z-index: -1;
     padding: 32px 0;
 }
 

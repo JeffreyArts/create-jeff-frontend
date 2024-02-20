@@ -22,11 +22,9 @@ export const createApp = ViteSSG(
             messages
         })
         
-        
         app.use(i18n)
         app.use(pinia)
         app.mixin(VueHeadMixin)
-
 
         pinia.use(({ store }) => {
             if (store.$id === "locale") {
