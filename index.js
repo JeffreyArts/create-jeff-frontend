@@ -77,10 +77,6 @@ async function main() {
     let packageJson = fs.readFileSync(`${outputDir}/package.json`, 'utf8');
     packageJson = packageJson.replace('this_name_will_be_replaced', appName);
     fs.writeFileSync(`${outputDir}/package.json`, packageJson);
-
-    envFile = fs.readFileSync(`${outputDir}/.env`, 'utf8');
-    envFile = envFile.replace('this_name_will_be_replaced', appName);
-    fs.writeFileSync(`${outputDir}/.env`, envFile);
     
     // Replace {{VITE_STRAPI_REST_ENDPOINT}} in .env file
     let VITE_STRAPI_REST_ENDPOINT = await askQuestion('Strapi backend location (default:http://localhost:1337): ')

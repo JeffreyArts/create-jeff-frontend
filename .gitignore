@@ -21,9 +21,10 @@ node_modules
 *.njsproj
 *.sln
 *.sw?
+
+# Package details
 dist/dist
 dist/package-lock.json
 dist/.env 
-
 package-lock.json
 yarn.lock
