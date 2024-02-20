@@ -14,6 +14,7 @@ This is a boilerplate project for a Vue3 app that is configured to support the f
 - Vite
 - Vite-SSG
 - Vue 3
+- Vue i18n
 - Vue Router
 
 > **Compatibility Note:**

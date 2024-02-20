@@ -1,0 +1,57 @@
+{
+    "locale": {
+        "en": "Engels",
+        "nl": "Nederlands"
+    },
+    "route::home": {
+        "title": "Jeff-frontend boilerplate",
+        "description": [
+            "Dit is een sjabloon voor een frontend-applicatie met standaard support voor Vue 3, TypeScript, Vue Router, Pinia, Vite, Lodash, PouchDB, Sass & normalize.css.",
+            "Het is gemaakt als raamwerk met alle technologie die ik vaak gebruik, voor projecten. Inclusief koppeling met het <a href='https://strapi.io' target='_blank'>Strapi</a> CMS."
+        ],
+        "strapi-test": {
+            "title": "Test Strapi REST verbinding",
+            "subtitle": "Zorg dat je, je .env-bestand met de juiste Strapi instellingen configureert.",
+            "details": {
+                "title": "Route inspiratie",
+                "subtitle": "Een paar routes die je kunt gebruiken om de verbinding te testen.",
+                "paths": [
+                    "/gebruikers/ik - Geeft details van de geautoriseerde gebruiker",
+                    "/auth/local/register - Registreer als een nieuwe gebruiker",
+                    "/auth/forgot-password - Vraag het wachtwoordresetproces aan"
+                ],
+                "footnote": "Kijk in het <a href='%{adminUrl}' target='_blank'>Strapi administratiepaneel</a> voor meer beschikbare endpoints"
+            }
+        },
+        "strapi-auth-test": {
+            "title": "Test Strapi authenticatie",
+            "login": "Inloggen",
+            "logout": "Uitloggen",
+            "welcome": "Welkom %{username}",
+            "confirmMessage": "Als er een bestaand account is voor %{confirmMessage}, zal er een e-mail verstuurd worden met een link voor het opnieuw instellen van het wachtwoord.",
+            "registerAccount": "Account registreren"
+        }
+    },
+    "component::auth/login": {
+        "email": "E-mailadres",
+        "password": "Wachtwoord",
+        "login": "Inloggen",
+        "goBack": "Terug gaan",
+        "resetPassword": "Wachtwoord resetten",
+        "forgotPassword": "Wachtwoord vergeten?"
+    },
+    "component::auth/register": {
+        "email": "E-mailadres",
+        "username": "Gebruikersnaam",
+        "password": "Wachtwoord",
+        "register": "Registreren"
+    },
+    "component::auth/resetPassword": {
+        "resetPassword": "Wachtwoord resetten",
+        "newPassword": "Nieuw wachtwoord"
+    },
+    "component::rest-demo": {
+        "submit": "Verzenden",
+        "outputMessage": "Resultaat van het <strong>%{method}</strong> verzoek naar <em>%{url}</em>."
+    }
+}

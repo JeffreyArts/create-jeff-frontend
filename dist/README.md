@@ -1,6 +1,6 @@
 # Jeff frontend
 
-This is a boilerplate for a frontend application using Vue3, Typescript, Vue Router, Pinia, Vite-SSG, Lodash, PouchDB, Sass, normalize.css & SocketIO. It is has default support for using Strapi as the back-end.
+This is a boilerplate for a frontend application using Vue3, Typescript, Vue Router, Pinia, Vite-SSG, Lodash, PouchDB, Sass, normalize.css & SocketIO. It is has default support for using Strapi as headless CMS and multi language support via VUE i18n.
 
 ## Features
 
@@ -17,6 +17,7 @@ This is a boilerplate for a frontend application using Vue3, Typescript, Vue Rou
 - [Vite-SSG](https://github.com/antfu/vite-ssg)
 - [Vue 3](https://github.com/vuejs/vue)
 - [Vue Router](https://github.com/vuejs/vue-router)
+- [Vue i18n](https://github.com/intlify/vue-i18n-next)
 
 ## Getting started
 
