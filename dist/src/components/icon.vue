@@ -1,15 +1,19 @@
 <template>
     <i class="icon" v-if="type && iconList[type] !== undefined">
         <div class="icon-svg" v-html="iconList[type]" />
-        <span v-if="label" class="icon-label">{{label}}</span>
+        <span v-if="label" class="icon-label">{{ label }}</span>
     </i>
 </template>
 
 
 <script lang="ts">
 import { defineComponent } from "vue"
-import iconCross from "./../assets/icons/cross.svg?raw"
-import iconCalendar from "./../assets/icons/calendar.svg?raw"
+import cross from "./../assets/icons/cross.svg?raw"
+import calendar from "./../assets/icons/calendar.svg?raw"
+import chevronDown from "@/assets/icons/chevron-down.svg?raw"
+import chevronUp from "@/assets/icons/chevron-up.svg?raw"
+import chevronLeft from "@/assets/icons/chevron-left.svg?raw"
+import chevronRight from "@/assets/icons/chevron-right.svg?raw"
 
 export default defineComponent({
     name: "icon",
@@ -26,8 +30,12 @@ export default defineComponent({
     data: () => {
         return {
             iconList: {
-                cross: iconCross,
-                calendar: iconCalendar,
+                calendar,
+                cross,
+                chevronDown,
+                chevronUp,
+                chevronLeft,
+                chevronRight
             } as { [key: string]: string }
         }
     },

@@ -1,16 +1,16 @@
 <template>
-    <div class="ascii-button" ref="button">
+    <button class="ascii-button" :type="type" ref="button">
         <div class="ascii-button-top" ref="top"></div>
         <div class="ascii-button-center" ref="center">
             | <slot /> |
         </div>
         <div class="ascii-button-bottom" ref="bottom"></div>
-    </div>
+    </button>
 </template>
 
 
 <script lang="ts">
-import { defineComponent } from "vue"
+import { defineComponent, PropType } from "vue"
 
 
 export default defineComponent({
@@ -21,6 +21,11 @@ export default defineComponent({
             required: false,
             default: "─"
         },
+        type: {
+            type: String as PropType<"submit" | "reset" | "button">,
+            required: false,
+            default: "button"
+        }
     },
     data: () => {
         return {
@@ -31,14 +36,17 @@ export default defineComponent({
             return this.character.repeat(512)
         }
     },
+    beforeUnmount() {
+        window.removeEventListener("resize", this.updateButton)
+    },
     mounted() {
         if (this.$refs["button"] instanceof HTMLElement) {
             const fontSize = Math.floor(parseInt(window.getComputedStyle(this.$refs["button"]).fontSize.replace("px", ""),10))
-            // this.$refs['button'].style.height = `${fontSize}px`
             this.$refs["button"].style.padding = `${fontSize}px 0`
-            this.fillLine("top")
-            this.fillLine("bottom")
+            this.updateButton()
         }
+
+        window.addEventListener("resize", this.updateButton)
     },
     methods: {
         fillLine(side: "top" | "bottom") {
@@ -55,6 +63,11 @@ export default defineComponent({
             }
             $ref?.classList.add("__isLoaded")
         },
+        updateButton() {
+            this.fillLine("top")
+            this.fillLine("bottom")
+
+        }
     }
 })
 </script>
@@ -69,6 +82,10 @@ export default defineComponent({
     cursor: pointer;
     line-height:1.2em;
     overflow: hidden;
+    background: none transparent;
+    border: 0 none transparent;
+    color: inherit;
+    padding: 0;
 
     &:hover,
     &:focus {
