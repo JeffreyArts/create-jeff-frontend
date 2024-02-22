@@ -1,12 +1,12 @@
 <template>
     <div class="language-selector-container">
-        <strong class="language-selector" @mousedown="openMenu">Select language &nbsp;<icon type="chevronDown"/></strong>
+        <strong class="language-selector" @mousedown="openMenu">{{ $text(`component::language-selector.selectLanguage`) }} &nbsp;<icon type="chevronDown"/></strong>
         <ul class="language-selector-list" ref="menu">
             <li class="language-selector-list-item" :key="k"
                 :class="[languageCode === $i18n.locale ? '__isActive' : '']"
                 @click="Locale.select(languageCode)" 
                 v-for="(languageCode,k) in languages">
-                {{$t(`locale.${languageCode}`)}}
+                {{$text(`locale.${languageCode}`)}}
             </li>
         </ul>
     </div>

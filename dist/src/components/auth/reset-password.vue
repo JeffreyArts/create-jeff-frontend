@@ -6,12 +6,12 @@ use the .ascii-box-content for styling the content inside the box. Best way is t
     <div class="reset-password-container">
         <form class="reset-password" @submit="submitForm">
             <div class="reset-password-field">
-                <label for="">{{ $t('component::auth/resetPassword.newPassword') }}</label>
+                <label for="">{{ $text('component::auth/resetPassword.newPassword') }}</label>
                 <input type="password" v-model="password" minlength="6">
             </div>
             <div class="reset-password-field">
                 <ascii-button type="submit">
-                    {{ $t('component::auth/resetPassword.resetPassword') }}
+                    {{ $text('component::auth/resetPassword.resetPassword') }}
                 </ascii-button>
             </div>
         </form>

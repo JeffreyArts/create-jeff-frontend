@@ -6,20 +6,20 @@ use the .ascii-box-content for styling the content inside the box. Best way is t
     <div class="register-form-container">
         <form class="register-form" @submit="submitForm">
             <div class="register-form-field">
-                <label for="">{{ $t('component::auth/register.email') }}</label>
+                <label for="">{{ $text('component::auth/register.email') }}</label>
                 <input type="text" v-model="email">
             </div>
             <div class="register-form-field">
-                <label for="">{{ $t('component::auth/register.username') }}</label>
+                <label for="">{{ $text('component::auth/register.username') }}</label>
                 <input type="text" v-model="username">
             </div>
             <div class="register-form-field">
-                <label for="">{{ $t('component::auth/register.password') }}</label>
+                <label for="">{{ $text('component::auth/register.password') }}</label>
                 <input type="password" v-model="password" minlength="6">
             </div>
             <div class="register-form-field">
                 <ascii-button type="submit">
-                    {{ $t('component::auth/register.register') }}
+                    {{ $text('component::auth/register.register') }}
                 </ascii-button>
             </div>
         </form>

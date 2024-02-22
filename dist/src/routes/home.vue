@@ -3,21 +3,18 @@
         <section class="container">
             
             <h1 class="home-title">
-                <span class="left">
-                    {{ $t('route::home.title') }}
+                <span class="left" v-html="$text('route::home.title') ">
                 </span>
                 <span class="right">
                     <languageSelector />
                 </span>
             </h1>
             
-            <ascii-line character="╤"/>
+            <ascii-line :character="$text('route::home.divider')"/>
             
             <div class="home-description">
-                <p>
-                    {{ $t('route::home.description[0]') }}
-                </p>
-                <p v-html="$t('route::home.description[1]')" />
+                <p v-html="$text('route::home.description[0]')" />
+                <p v-html="$text('route::home.description[1]')" />
             </div>
             
             
@@ -25,23 +22,23 @@
             
             <div class="strapi-test">
                 
-                <h1>{{ $t('route::home.strapi-test.title') }}</h1>
-                <em>{{ $t('route::home.strapi-test.subtitle') }}</em>
+                <h1>{{ $text('route::home.strapi-test.title') }}</h1>
+                <em>{{ $text('route::home.strapi-test.subtitle') }}</em>
                 <br>
                 <br>
                 <rest-demo />
 
                 <details>
-                    <summary>{{ $t('route::home.strapi-test.details.title') }}</summary>
-                    <p>{{ $t('route::home.strapi-test.details.subtitle') }}</p>
+                    <summary>{{ $text('route::home.strapi-test.details.title') }}</summary>
+                    <p>{{ $text('route::home.strapi-test.details.subtitle') }}</p>
                     <ul>
-                        <li>{{ $t(`route::home.strapi-test.details.paths[0]`) }}</li>
-                        <li>{{ $t(`route::home.strapi-test.details.paths[1]`) }}</li>
-                        <li>{{ $t(`route::home.strapi-test.details.paths[2]`) }}</li>
+                        <li>{{ $text(`route::home.strapi-test.details.paths[0]`) }}</li>
+                        <li>{{ $text(`route::home.strapi-test.details.paths[1]`) }}</li>
+                        <li>{{ $text(`route::home.strapi-test.details.paths[2]`) }}</li>
                         <li>...</li>
                     </ul>
                     <p>
-                        <span v-html="$t(`route::home.strapi-test.details.footnote`, { adminUrl}) " />&nbsp;
+                        <span v-html="$text(`route::home.strapi-test.details.footnote`, { adminUrl }) " />&nbsp;
                         <span class="highlight">Settings</span> &gt; <span class="highlight">Users & Permissions plugin</span> &gt; <span class="highlight">Roles</span></p>
                 </details>
             </div>
@@ -49,28 +46,28 @@
             <ascii-line class="divider-line" character="~"/>
 
             <div class="strapi-test">
-                <h1>{{ $t('route::home.strapi-auth-test.title') }}</h1>
+                <h1>{{ $text('route::home.strapi-auth-test.title') }}</h1>
                 <div class="test-auth-container">
 
                     <div class="test-auth-section">
                         <div class="unauthenticated" v-if="!Strapi.self && !confirmMessage">
-                            <h3>{{ $t('route::home.strapi-auth-test.login') }}</h3>
+                            <h3>{{ $text('route::home.strapi-auth-test.login') }}</h3>
                             <authentication @requestPasswordSuccess="showConfirmMessage"/>
                         </div>
                         <div class="authenticated" v-if="Strapi.self && !confirmMessage">
-                            <h3>{{ $t('route::home.strapi-auth-test.welcome', { username: Strapi.self.username}) }}</h3>
+                            <h3>{{ $text('route::home.strapi-auth-test.welcome', { username: Strapi.self.username}) }}</h3>
                             <ascii-button @click="logout">
-                                {{ $t('route::home.strapi-auth-test.logout') }}
+                                {{ $text('route::home.strapi-auth-test.logout') }}
                             </ascii-button>
                         </div>
                         <div v-if="confirmMessage">
-                            {{ $t('route::home.strapi-auth-test.confirmMessage', { confirmMessage }) }}
+                            {{ $text('route::home.strapi-auth-test.confirmMessage', { confirmMessage }) }}
                         </div>
                     </div>
                     <div class="test-auth-section">
                         <div class="unauthenticated" v-if="!Strapi.self">
                             
-                            <h3>{{ $t('route::home.strapi-auth-test.registerAccount') }}</h3>
+                            <h3>{{ $text('route::home.strapi-auth-test.registerAccount') }}</h3>
                             <register />
                         </div>
                         <pre v-if="Strapi.self">{{ Strapi.self }}</pre>
@@ -233,6 +230,8 @@ export default defineComponent ({
     font-weight: normal;
     display:flex;
     justify-content: space-between;
+    position: relative;
+    z-index: 1;
 
     .icon {
         height: 1.2em;
@@ -254,7 +253,6 @@ export default defineComponent ({
 
 .home-description {
     position: relative;
-    z-index: -1;
     padding: 32px 0;
 }
 

@@ -5,9 +5,10 @@
     },
     "route::home": {
         "title": "Jeff-frontend boilerplate",
+        "divider": "🇬🇧",
         "description": [
             "This is a boilerplate for a frontend application using Vue 3, Typescript, Vue Router, Pinia, Vite, Lodash, PouchDB, Sass & normalize.css.",
-            "It is made as a scaffolding framework to quickly get up and running to develop a webapplication build upon the headless <a href='https://strapi.io' target='_blank'>Strapi</a> CMS."
+        "It is made as a scaffolding framework to quickly get up and running to develop a webapplication build upon the headless [Strapi](https://strapi.io) CMS."
         ],
         "strapi-test": {
             "title": "Test Strapi REST connection",
@@ -20,7 +21,7 @@
                     "/auth/local/register - Register as a new user",
                     "/auth/forgot-password - Request password reset flow"
                 ],
-                "footnote": "Look in the <a href='%{adminUrl}' target='_blank'>Strapi admin panel</a> for more details upon the available endpoints"
+                "footnote": "Look in the [Strapi admin panel](%{adminUrl}) for more details upon the available endpoints"
             }
         },
         "strapi-auth-test": {
@@ -52,6 +53,9 @@
     },
     "component::rest-demo": {
         "submit": "Submit",
-        "outputMessage": "Output of the <strong>%{method}</strong> request to <em>%{url}</em>."
+        "outputMessage": "Output of the **%{method}** request to _%{url}_."
+    },
+    "component::language-selector": {
+        "selectLanguage": "Select language"
     }
 }

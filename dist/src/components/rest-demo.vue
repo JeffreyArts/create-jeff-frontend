@@ -27,13 +27,13 @@ use the .ascii-box-content for styling the content inside the box. Best way is t
             </div>
             <div class="button-container">
                 <ascii-button type="submit">
-                    {{ $t('component::rest-demo.submit') }}
+                    {{ $text('component::rest-demo.submit') }}
                 </ascii-button>
             </div>
         </form>
         
         <div class="rest-demo-result" v-if="output.url">
-            <span v-html="$t('component::rest-demo.outputMessage', { method: output.method, url: output.url })" />
+            <span v-html="$text('component::rest-demo.outputMessage', { method: output.method, url: output.url })" />
             <pre v-html="printJSON(output.data)" />
         </div>    
     </div>

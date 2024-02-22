@@ -6,27 +6,27 @@ use the .ascii-box-content for styling the content inside the box. Best way is t
     <div class="auth-form-container">
         <form class="auth-form" @submit="submitForm">
             <div class="auth-form-field">
-                <label for="">{{ $t('component::auth/login.email') }}</label>
+                <label for="">{{ $text('component::auth/login.email') }}</label>
                 <input type="text" v-model="email">
             </div>
             <div class="auth-form-field" v-if="!forgotPassword">
-                <label for="">{{ $t('component::auth/login.password') }}</label>
+                <label for="">{{ $text('component::auth/login.password') }}</label>
                 <input type="password" v-model="password">
             </div>
             <div class="auth-form-field">
                 <ascii-button type="submit" v-if="!forgotPassword">
-                    {{ $t('component::auth/login.login') }}
+                    {{ $text('component::auth/login.login') }}
                 </ascii-button>
 
 
                 <ascii-button @click="forgotPassword = false" v-if="forgotPassword">
-                    {{ $t('component::auth/login.goBack') }}
+                    {{ $text('component::auth/login.goBack') }}
                 </ascii-button>
                 <ascii-button type="submit" v-if="forgotPassword">
-                    {{ $t('component::auth/login.resetPassword') }}
+                    {{ $text('component::auth/login.resetPassword') }}
                 </ascii-button>
             </div>
-            <span @click="forgotPassword = true" v-if="!forgotPassword">{{ $t('component::auth/login.forgotPassword') }}</span>
+            <span @click="forgotPassword = true" v-if="!forgotPassword">{{ $text('component::auth/login.forgotPassword') }}</span>
         </form>
         <div class="auth-form-error" v-if="error">
             <p v-html="error.message" />

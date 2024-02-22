@@ -1,6 +1,6 @@
 # Jeff frontend
 
-This is a boilerplate for a frontend application using Vue3, Typescript, Vue Router, Pinia, Vite-SSG, Lodash, PouchDB, Sass, normalize.css & SocketIO. It is has default support for using Strapi as headless CMS and multi language support via VUE i18n.
+This is a boilerplate for a frontend application using Vue3, Typescript, Vue Router, Pinia, Vite-SSG, Lodash, PouchDB, Sass, normalize.css & SocketIO. It is has default support for using Strapi as the back-end.
 
 ## Features
 
@@ -13,11 +13,11 @@ This is a boilerplate for a frontend application using Vue3, Typescript, Vue Rou
 - [Sass](https://github.com/sass/sass)
 - [SocketIO](https://github.com/socketio/socket.io-client)
 - [TypeScript](https://github.com/microsoft/TypeScript)
-- [Vite](https://github.com/vitejs/vite)
 - [Vite-SSG](https://github.com/antfu/vite-ssg)
+- [Vite](https://github.com/vitejs/vite)
 - [Vue 3](https://github.com/vuejs/vue)
+- [Vue-i18n](https://github.com/intlify/vue-i18n-next)
 - [Vue Router](https://github.com/vuejs/vue-router)
-- [Vue i18n](https://github.com/intlify/vue-i18n-next)
 
 ## Getting started
 
@@ -78,6 +78,15 @@ or
 $ yarn deploy # Using .env.staging
 $ yarn production # Using .env.production
 ```
+
+## Multilingual
+Via [Vue-i18n](https://github.com/intlify/vue-i18n-next) there is support for developing a multilingual webapplication. There is a custom layer on top of this that adds 2 additional features on top of this plugin.
+
+1. Locale selection
+Via the Pinia store `stores/locale.ts` the app can remember the state of the application. At default it will use english as the fallback language, which can be configured in `main.ts`. With the `locale.select` method you can set a new locale, which will be stored in the localstorage (and also loaded when the user re-opens the application)
+
+2. Markdown
+The default behaviour of $t remains intact, but there is an additional `$text` method that will parse the markdown in the translated text string. This will prevent you from splitting up a translation in multiple chunks like [vue-i18n](https://vue-i18n.intlify.dev/guide/advanced/component.html#basic-usage) requires you.
 
 
 ## [License](https://github.com/JeffreyArts/create-jeff-backend/blob/master/LICENSE)
